@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <style>
+            body {
+                background-color: white;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div id="editSection">
+            <h3>RADIO</h3>
+            <div>
+                <img src="/images/radio_france_info.png" alt="Radio France" url="   http://direct.franceinfo.fr/live/franceinfo-hifi.aac">
+                <img src="/images/radio_france_musique.png" alt="Radio France Musique" url="http://direct.franceinter.fr/live/francemusique-hifi.aac">
+                <img src="/images/radio_france_culture.png" alt="Radio France Culture" url="http://direct.franceculture.fr/live/franceculture-hifi.aac">
+            </div>
+            <button id="play">Play</button>
+            
+            <script>
+                var audio = new Audio();
+                var playButton = document.getElementById("play");
+                var images = document.getElementsByTagName("img");
+
+                playButton.addEventListener("click", function() {
+                    if (audio.paused) {
+                        audio.play();
+                        playButton.innerHTML = "Pause";
+                    } else {
+                        audio.pause();
+                        playButton.innerHTML = "Play";
+                    }
+                });
+
+                for (var i = 0; i < images.length; i++) {
+                    images[i].addEventListener("click", function() {
+                        var url = this.getAttribute("url");
+                        audio.src = url;
+                        audio.play();
+                        playButton.innerHTML = "Pause";
+                    });
+                }
+
+            </script>
+
+        </div>
+    </body>
+</html>

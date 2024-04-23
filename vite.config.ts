@@ -27,6 +27,7 @@ export default defineConfig({
         rollupOptions: {
             input: {
                 index: "./index.html",
+                radio: "./radio.html",
                 ...getMapsScripts(maps),
             },
         },

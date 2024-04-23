@@ -461,6 +461,17 @@
                  "width":32,
                  "x":64,
                  "y":544
+                }, 
+                {
+                 "height":125.333333333333,
+                 "id":20,
+                 "name":"radio",
+                 "rotation":0,
+                 "type":"area",
+                 "visible":true,
+                 "width":224.666666666667,
+                 "x":736,
+                 "y":32.6666666666667
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -543,7 +554,7 @@
          "y":0
         }],
  "nextlayerid":63,
- "nextobjectid":20,
+ "nextobjectid":21,
  "orientation":"orthogonal",
  "properties":[
         {

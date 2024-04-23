@@ -19,6 +19,44 @@ WA.onInit().then(() => {
 
     WA.room.area.onLeave('clock').subscribe(closePopup)
 
+    let radioWebsite: any;
+
+    WA.room.area.onEnter('radio').subscribe(async () => {
+        console.log("Entering visibleNote layer");
+
+        radioWebsite = await WA.ui.website.open({
+            url: "./radio.html",
+            position: {
+                vertical: "top",
+                horizontal: "middle",
+            },
+            size: {
+                height: "40vh",
+                width: "50vw",
+            },
+            margin: {
+                top: "10vh",
+            },
+            allowApi: true,
+        });
+
+        WA.event.broadcast("bell-rang", {});
+
+    });
+
+    const bellSound = WA.sound.loadSound("sounds/door-bell-1.mp3");
+
+    // When the bell-rang event is received
+    WA.event.on("bell-rang").subscribe(({name, data, senderId}) => {
+      // Play the sound of the bell
+      bellSound.play({})
+    });
+
+    WA.room.area.onLeave('radio').subscribe(() => {
+        console.log("Leaving visibleNote layer");
+        radioWebsite.close();
+    });
+
     // The line below bootstraps the Scripting API Extra library that adds a number of advanced properties/features to WorkAdventure
     bootstrapExtra().then(() => {
         console.log('Scripting API Extra ready');
