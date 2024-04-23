@@ -518,12 +518,46 @@
                  "height":125.333333333333,
                  "id":20,
                  "name":"radio",
+                 "properties":[
+                        {
+                         "name":"openWebsite",
+                         "type":"string",
+                         "value":"radio.html"
+                        }, 
+                        {
+                         "name":"openWebsiteAllowApi",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"openWebsiteWidth",
+                         "type":"int",
+                         "value":30
+                        }],
                  "rotation":0,
                  "type":"area",
                  "visible":true,
                  "width":254.450732191611,
                  "x":383.555224621494,
                  "y":481.08231984777
+                }, 
+                {
+                 "height":0,
+                 "id":20,
+                 "name":"radio",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"default",
+                         "type":"string",
+                         "value":"{}"
+                        }],
+                 "rotation":0,
+                 "type":"variable",
+                 "visible":true,
+                 "width":0,
+                 "x":426,
+                 "y":518
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -606,7 +640,7 @@
          "y":0
         }],
  "nextlayerid":63,
- "nextobjectid":20,
+ "nextobjectid":21,
  "orientation":"orthogonal",
  "properties":[
         {

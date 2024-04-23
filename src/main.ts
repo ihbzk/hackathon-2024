@@ -24,22 +24,6 @@ WA.onInit().then(() => {
     WA.room.area.onEnter('radio').subscribe(async () => {
         console.log("Entering visibleNote layer");
 
-        radioWebsite = await WA.ui.website.open({
-            url: "./radio.html",
-            position: {
-                vertical: "top",
-                horizontal: "middle",
-            },
-            size: {
-                height: "40vh",
-                width: "50vw",
-            },
-            margin: {
-                top: "10vh",
-            },
-            allowApi: true,
-        });
-
         WA.event.broadcast("bell-rang", {});
 
     });
