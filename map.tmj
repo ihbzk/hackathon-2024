@@ -112,8 +112,8 @@
                     0, 0, 0, 0, 2704, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2844, 2848, 2848, 2848, 2848, 2845, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2850, 0, 0, 0, 0, 2851, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2704, 2850, 0, 0, 0, 0, 2851, 0,
-                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2850, 0, 0, 0, 0, 2851, 0,
-                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2850, 0, 0, 0, 0, 2851, 0,
+                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2956, 2957, 0, 0, 0, 0, 0, 0, 2850, 0, 0, 0, 0, 2851, 0,
+                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2958, 2959, 0, 0, 0, 0, 0, 0, 2850, 0, 0, 0, 0, 2851, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2850, 0, 0, 0, 0, 2851, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2847, 2849, 2849, 2849, 2849, 2846, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -135,6 +135,12 @@
                 }],
          "name":"floor",
          "opacity":1,
+         "properties":[
+                {
+                 "name":"playAudio",
+                 "type":"string",
+                 "value":"https:\/\/direct.franceinfo.fr\/live\/franceinfo-hifi.aac"
+                }],
          "type":"group",
          "visible":true,
          "x":0,
@@ -533,6 +539,11 @@
                          "name":"openWebsiteWidth",
                          "type":"int",
                          "value":30
+                        }, 
+                        {
+                         "name":"playAudio",
+                         "type":"string",
+                         "value":"https:\/\/direct.franceinfo.fr\/live\/franceinfo-hifi.aac"
                         }],
                  "rotation":0,
                  "type":"area",
@@ -558,6 +569,18 @@
                  "width":0,
                  "x":426,
                  "y":518
+                }, 
+                {
+                 "height":0,
+                 "id":21,
+                 "name":"radio",
+                 "point":true,
+                 "rotation":0,
+                 "type":"variable",
+                 "visible":true,
+                 "width":0,
+                 "x":396,
+                 "y":514
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -639,8 +662,8 @@
          "x":0,
          "y":0
         }],
- "nextlayerid":63,
- "nextobjectid":21,
+ "nextlayerid":67,
+ "nextobjectid":23,
  "orientation":"orthogonal",
  "properties":[
         {
@@ -809,6 +832,19 @@
          "name":"WA_User_Interface",
          "spacing":0,
          "tilecount":273,
+         "tileheight":32,
+         "tilewidth":32
+        }, 
+        {
+         "columns":2,
+         "firstgid":2956,
+         "image":"tilesets\/france_info.jpg",
+         "imageheight":64,
+         "imagewidth":64,
+         "margin":0,
+         "name":"france_info",
+         "spacing":0,
+         "tilecount":4,
          "tileheight":32,
          "tilewidth":32
         }],

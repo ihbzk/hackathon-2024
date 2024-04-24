@@ -21,8 +21,35 @@ WA.onInit().then(() => {
 
     WA.room.area.onEnter('radio').subscribe(async () => {
         WA.event.broadcast("bell-rang", {});
+        console.log(WA.player.state.radio);
     });
 
+    WA.room.onEnterLayer('floor/floor2').subscribe(() => {
+        WA.room.setProperty('floor/floor2', "playAudio", WA.player.state.radio);
+        console.log("radio partout " + WA.player.state.radio);
+        //area.setProperty('playAudio', WA.player.state.radio);
+    });
+
+    WA.player.state.onVariableChange('radio').subscribe( (newValue) => {
+        console.log("radio player has changed to " + newValue);
+        WA.room.setProperty('floor/floor2', "playAudio", newValue);
+    });
+    
+    
+
+    WA.ui.actionBar.addButton({
+        id: 'radio-btn',
+        type: 'action',
+        imageSrc: 'http://localhost:5174/images/radio-solid.svg',
+        toolTip: 'Radio',
+        callback: (event) => {
+            console.log('Button clicked', event);
+            WA.nav.openCoWebSite('http://localhost:5174/radio.html', true);
+        
+            // When a user clicks on the action bar button 'Register', we remove it.
+            //WA.ui.actionBar.removeButton('register-btn');
+        }
+    });
     const bellSound = WA.sound.loadSound("sounds/door-bell-1.mp3");
 
     // When the bell-rang event is received
