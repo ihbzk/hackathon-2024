@@ -44,11 +44,6 @@
                         audio.src = url;
                         audio.play();
                         playButton.innerHTML = "Pause";
-
-                        WA.state.saveVariable('radio', {
-                            radioUrl: url
-                        }).catch(e => console.error('Something went wrong while saving variable', e));
-
                     });
                 }
 
