@@ -42,7 +42,7 @@ WA.onInit().then(() => {
             });
             console.log("Le propriétaire de la radio est  :",  WA.player.name);
 
-            radioCoWebSite = await WA.nav.openCoWebSite('./radio.html', true, "", 30);
+            radioCoWebSite = await WA.nav.openCoWebSite('/radio.html', true, "", 30);
         
         } else {
             WA.state.saveVariable('radio', { 
@@ -73,7 +73,7 @@ WA.onInit().then(() => {
     WA.room.website.create(
         {
             name: 'radioEveryWhere',
-            url: './radioEveryWhereController.html',
+            url: '/radioEveryWhereController.html',
             position: { x: 0, y: 0, width: 1, height: 1 },
             visible: false,
             allowApi: true,

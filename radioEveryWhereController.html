@@ -72,7 +72,7 @@
                 WA.ui.actionBar.addButton({
                     id: 'radio-btn',
                     type: 'action',
-                    imageSrc: 'http://localhost:5173/images/radio-solid.svg',
+                    imageSrc: '/images/radio-solid.svg',
                     toolTip: 'Radio',
                     callback: async (event) => {
                         console.log('Button clicked radio menu', event);
@@ -81,7 +81,7 @@
                         if(coWebsite !== undefined){
                             coWebsite.close();
                         }
-                        coWebsite = await WA.nav.openCoWebSite('http://localhost:5173/radioEveryWhere.html', true, "", 30);
+                        coWebsite = await WA.nav.openCoWebSite('/radioEveryWhere.html', true, "", 30);
                     }
                 });
             }
@@ -90,7 +90,7 @@
                 WA.ui.actionBar.addButton({
                     id: 'radio-play-btn',
                     type: 'action',
-                    imageSrc: 'http://localhost:5173/images/play-solid.svg',
+                    imageSrc: '/images/play-solid.svg',
                     toolTip: 'Play',
                     callback: (event) => {
                         console.log('Button clicked radio play', event);
@@ -105,7 +105,7 @@
                 WA.ui.actionBar.addButton({
                     id: 'radio-pause-btn',
                     type: 'action',
-                    imageSrc: 'http://localhost:5173/images/pause-solid.svg',
+                    imageSrc: '/images/pause-solid.svg',
                     toolTip: 'Play',
                     callback: (event) => {
                         console.log('Button clicked radio pause', event);
