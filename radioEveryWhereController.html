@@ -9,28 +9,32 @@
             
             <script>
 
-            // ON LOAD
+            // ON INIT
             var audio = new Audio();
             var radioUIWebsite = undefined;
+            WA.player.state.saveVariable('isPlaying', {isPlaying: false, url: '', name: ''});
             addRadioMenu();
 
+            // FOR HEADSET
             audio.addEventListener('play', function() {
                 console.log('Audio play');
-                WA.player.state.saveVariable('isPlaying', true);
+                WA.player.state.saveVariable('isPlayingEveryWhere', true);
             });
 
+            // FOR HEADSET
             audio.addEventListener('pause', function() {
                 console.log('Audio pause');
-                WA.player.state.saveVariable('isPlaying', false);
+                WA.player.state.saveVariable('isPlayingEveryWhere', false);
             });
 
-            WA.player.state.onVariableChange('radio').subscribe((url) => {
-                console.log('Radio changed controller and play', url);
-                audio.src = url;
+            // ON CLICK TO CHANGE RADIO FROM radioEveryWhere.html
+            WA.player.state.onVariableChange('radio').subscribe((radio) => {
+                console.log('Radio changed controller and play', radio);
                 play();
             });
 
 
+            // ON ENTER/LEAVE RADIO ROOM
             WA.player.state.onVariableChange('radio_can_play').subscribe((bool) => {
                 console.log('Radio can play', bool);
                 if (bool){
@@ -55,7 +59,8 @@
                 }
             });
 
-            WA.player.state.onVariableChange('isPlaying').subscribe((bool) => {
+            // ON PLAY/PAUSE RADIO EVERYWHERE
+            WA.player.state.onVariableChange('isPlayingEveryWhere').subscribe((bool) => {
                 console.log('Radio is playing', bool);
                 if(bool){
                     WA.ui.actionBar.removeButton('radio-play-btn');
@@ -136,10 +141,15 @@
 
             function play(){
 
-                if(audio.src === undefined){
+                const radio = WA.player.state.radio;
+                audio.src = radio.url;
+
+                if(audio.src === undefined || audio.src === ''){
                     return;
                 }
-                WA.player.state.saveVariable('isPlaying', true);
+
+                WA.player.state.saveVariable('isPlayingEveryWhere', true);
+                WA.player.state.saveVariable('isPlaying', {isPlaying: true, url: radio.url, name: radio.name});
                 audio.play();
                 addRadioPause();
                 console.log('Play');
@@ -147,11 +157,12 @@
 
             function pause(){
 
-                if(audio.src === undefined){
+                if(!audio.src){
                     return;
                 }
 
-                WA.player.state.saveVariable('isPlaying', false);
+                WA.player.state.saveVariable('isPlayingEveryWhere', false);
+                WA.player.state.saveVariable('isPlaying', {isPlaying: false, url: '', name: ''});
                 audio.pause();
                 addRadioPlay();
                 console.log('Pause');
