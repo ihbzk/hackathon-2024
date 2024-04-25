@@ -19,37 +19,29 @@ WA.onInit().then(() => {
 
     WA.room.area.onLeave('clock').subscribe(closePopup)
 
-    WA.room.area.onEnter('radio').subscribe(async () => {
+    WA.room.area.onEnter('radio').subscribe(() => {
         WA.event.broadcast("bell-rang", {});
+        WA.player.state.saveVariable("radio_can_play", false);
         console.log(WA.player.state.radio);
     });
 
-    WA.room.onEnterLayer('floor/floor2').subscribe(() => {
-        WA.room.setProperty('floor/floor2', "playAudio", WA.player.state.radio);
-        console.log("radio partout " + WA.player.state.radio);
-        //area.setProperty('playAudio', WA.player.state.radio);
+    WA.room.area.onLeave('radio').subscribe(() => {
+        // TODO FIX : need an action from user to replay music
+        WA.player.state.saveVariable("radio_can_play", true);
     });
 
-    WA.player.state.onVariableChange('radio').subscribe( (newValue) => {
-        console.log("radio player has changed to " + newValue);
-        WA.room.setProperty('floor/floor2', "playAudio", newValue);
-    });
-    
-    
-
-    WA.ui.actionBar.addButton({
-        id: 'radio-btn',
-        type: 'action',
-        imageSrc: 'http://localhost:5174/images/radio-solid.svg',
-        toolTip: 'Radio',
-        callback: (event) => {
-            console.log('Button clicked', event);
-            WA.nav.openCoWebSite('http://localhost:5174/radio.html', true);
-        
-            // When a user clicks on the action bar button 'Register', we remove it.
-            //WA.ui.actionBar.removeButton('register-btn');
+    WA.room.website.create(
+        {
+            name: 'radioEveryWhere',
+            url: 'http://localhost:5173/radioEveryWhereController.html',
+            position: { x: 0, y: 0, width: 1, height: 1 },
+            visible: false,
+            allowApi: true,
+            origin: 'map',
+            scale: 1
         }
-    });
+    );
+
     const bellSound = WA.sound.loadSound("sounds/door-bell-1.mp3");
 
     // When the bell-rang event is received

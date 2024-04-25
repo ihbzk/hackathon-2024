@@ -539,11 +539,6 @@
                          "name":"openWebsiteWidth",
                          "type":"int",
                          "value":30
-                        }, 
-                        {
-                         "name":"playAudio",
-                         "type":"string",
-                         "value":"https:\/\/direct.franceinfo.fr\/live\/franceinfo-hifi.aac"
                         }],
                  "rotation":0,
                  "type":"area",
@@ -663,7 +658,7 @@
          "y":0
         }],
  "nextlayerid":67,
- "nextobjectid":23,
+ "nextobjectid":26,
  "orientation":"orthogonal",
  "properties":[
         {
