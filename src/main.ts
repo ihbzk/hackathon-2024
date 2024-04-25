@@ -19,7 +19,10 @@ WA.onInit().then(() => {
 
     WA.room.area.onLeave('clock').subscribe(closePopup)
 
-    WA.room.area.onEnter('radio').subscribe(() => {
+    var radioCoWebSite = undefined;
+
+    WA.room.area.onEnter('radio').subscribe(async () => {
+        radioCoWebSite = await WA.nav.openCoWebSite('http://localhost:5173/radioEveryWhere.html', true, "", 30);
         WA.event.broadcast("bell-rang", {});
         WA.player.state.saveVariable("radio_can_play", false);
         console.log(WA.player.state.radio);
@@ -27,6 +30,9 @@ WA.onInit().then(() => {
 
     WA.room.area.onLeave('radio').subscribe(() => {
         // TODO FIX : need an action from user to replay music
+        if(radioCoWebSite !== undefined){
+            radioCoWebSite.close();
+        }
         WA.player.state.saveVariable("radio_can_play", true);
     });
 

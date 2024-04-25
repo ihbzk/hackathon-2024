@@ -657,22 +657,6 @@
                  "height":77.342931413717,
                  "id":20,
                  "name":"radio",
-                 "properties":[
-                        {
-                         "name":"openWebsite",
-                         "type":"string",
-                         "value":"radio.html"
-                        }, 
-                        {
-                         "name":"openWebsiteAllowApi",
-                         "type":"bool",
-                         "value":true
-                        }, 
-                        {
-                         "name":"openWebsiteWidth",
-                         "type":"int",
-                         "value":30
-                        }],
                  "rotation":0,
                  "type":"area",
                  "visible":true,

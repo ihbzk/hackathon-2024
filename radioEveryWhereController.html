@@ -39,6 +39,13 @@
                     if(audio.src !== undefined){
                         addRadioPlay();
                     }
+
+                    if(coWebsite !== undefined){
+                        console.log('Cowebsite is opendejabdaz', coWebsite);
+                        coWebsite.close();
+                    }
+
+                    console.log('Cowebsite is not opendejabdaz', coWebsite);
                 }
                 else {
                     console.log('Radio playing else', bool);
@@ -72,6 +79,8 @@
                     toolTip: 'Radio',
                     callback: async (event) => {
                         console.log('Button clicked radio menu', event);
+
+                        // TODO CAN OPEN MULTI TAB WHEN THE BUTTON IS SPAMMED
                         if(coWebsite !== undefined){
                             coWebsite.close();
                         }
