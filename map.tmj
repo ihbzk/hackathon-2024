@@ -310,6 +310,16 @@
                  "width":31,
                  "x":0,
                  "y":0
+                }, 
+                {
+                 "id":74,
+                 "image":"",
+                 "name":"logoRadio",
+                 "opacity":1,
+                 "type":"imagelayer",
+                 "visible":true,
+                 "x":0,
+                 "y":0
                 }],
          "name":"floor",
          "opacity":1,
@@ -657,6 +667,12 @@
                  "height":77.342931413717,
                  "id":20,
                  "name":"radio",
+                 "properties":[
+                        {
+                         "name":"logoArea",
+                         "type":"string",
+                         "value":"radioLogo"
+                        }],
                  "rotation":0,
                  "type":"area",
                  "visible":true,
@@ -668,6 +684,12 @@
                  "height":84.1987031165193,
                  "id":20,
                  "name":"radio2",
+                 "properties":[
+                        {
+                         "name":"logoArea",
+                         "type":"string",
+                         "value":"radio2Logo"
+                        }],
                  "rotation":0,
                  "type":"area",
                  "visible":true,
@@ -703,6 +725,28 @@
                  "width":0,
                  "x":526.371308016878,
                  "y":562.236286919831
+                }, 
+                {
+                 "height":59.1763942931258,
+                 "id":29,
+                 "name":"radioLogo",
+                 "rotation":0,
+                 "type":"area",
+                 "visible":true,
+                 "width":58.3657587548638,
+                 "x":355.058365758755,
+                 "y":387.483787289235
+                }, 
+                {
+                 "height":58.3657587548638,
+                 "id":30,
+                 "name":"radio2Logo",
+                 "rotation":0,
+                 "type":"area",
+                 "visible":true,
+                 "width":57.5551232166018,
+                 "x":675.259403372244,
+                 "y":386.673151750973
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -867,8 +911,8 @@
          "x":0,
          "y":0
         }],
- "nextlayerid":74,
- "nextobjectid":29,
+ "nextlayerid":75,
+ "nextobjectid":31,
  "orientation":"orthogonal",
  "properties":[
         {
