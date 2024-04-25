@@ -25,7 +25,6 @@
 
             WA.player.state.onVariableChange('radio').subscribe((url) => {
                 console.log('Radio changed controller and play', url);
-                
                 audio.src = url;
                 play();
             });
@@ -36,7 +35,7 @@
                 if (bool){
                     addRadioMenu();
 
-                    if(audio.src !== undefined){
+                    if( audio.src !== undefined && audio.src !== ''){
                         addRadioPlay();
                     }
 
@@ -83,7 +82,6 @@
                             coWebsite.close();
                         }
                         coWebsite = await WA.nav.openCoWebSite('http://localhost:5173/radioEveryWhere.html', true, "", 30);
-                        console.log('CoWebSite', coWebsite);
                     }
                 });
             }
