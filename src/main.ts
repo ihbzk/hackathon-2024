@@ -7,9 +7,10 @@ console.log('Script started successfully');
 
 let currentPopup: Popup | undefined;
 let radioUIWebsite: UIWebsite;
+let playerOwner: string | null = null;
 
 interface Radio {
-    playerOwner: string
+    playerOwner: string | null
     playerNumber: number
 }
 
@@ -33,7 +34,7 @@ WA.onInit().then(() => {
 
         const radio: Radio = await WA.state.loadVariable('radio') as Radio;
 
-        if (!radio.playerOwner) {
+        if (!radio.playerOwner || radio.playerNumber <= 0 ) {
             const playerOwner = WA.player.id;
 
             WA.state.saveVariable('radio', {
@@ -64,6 +65,24 @@ WA.onInit().then(() => {
                 playerOwner: radio.playerOwner,
                 playerNumber: radio.playerNumber++
             });
+            if(radio.playerOwner === WA.player.id){
+                radioUIWebsite = await WA.ui.website.open({
+                    url: "http://localhost:5173/radio.html",
+                    allowApi: true,
+                    position: {
+                        vertical: "top",
+                        horizontal: "right",
+                    },
+                    size: {
+                        height: "35vh",
+                        width: "35vw",
+                    },
+                    margin: {
+                        top: "5vh",
+                        right: "5vw",
+                    },
+                });
+            }
         }
     });
 
@@ -74,15 +93,17 @@ WA.onInit().then(() => {
 
         const radio: Radio = await WA.state.loadVariable('radio') as Radio;
 
-        if(radio.playerOwner === WA.player.id || radio.playerNumber > 0){
-            WA.state.saveVariable('radio', { 
-                playerOwner : null,
-                playerNumber: radio.playerNumber --
+        if(radio.playerOwner === WA.player.id ){
+            WA.state.saveVariable('radio', {
+                playerOwner,
+                playerNumber: radio.playerNumber -1
             });
             console.log('La playerOwner reset à null');
         }
         radioUIWebsite.close();
-    });
+        console.log('La playerOwner reset à null');
+        }
+    );
 
 
     WA.room.website.create(
