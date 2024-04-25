@@ -37,11 +37,6 @@
                     });
                 }
 
-                function saveRadio(url) {
-                    console.log('Save radio', url);
-                    WA.player.state.saveVariable('radio', url);
-                }
-
                 async function changeRadio(url) {
                     const area = await WA.room.area.get('radio');
                     console.log('Area', area);

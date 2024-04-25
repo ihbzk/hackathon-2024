@@ -31,6 +31,7 @@
                     images[i].addEventListener("click", function() {
                         var url = this.getAttribute("url");
                         WA.player.state.saveVariable('radio', url);
+                        console.log('Radio saved', url);
                     });
                 }
 
