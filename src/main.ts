@@ -1,11 +1,12 @@
 /// <reference types="@workadventure/iframe-api-typings" />
 
-import { Popup } from "@workadventure/iframe-api-typings";
+import { CoWebsite, Popup } from "@workadventure/iframe-api-typings";
 import { bootstrapExtra } from "@workadventure/scripting-api-extra";
 
 console.log('Script started successfully');
 
 let currentPopup: Popup | undefined;
+let radioCoWebSite: CoWebsite;
 
 interface Radio {
     playerOwner: string
@@ -40,11 +41,16 @@ WA.onInit().then(() => {
                 playerNumber: 1
             });
             console.log("Le propriétaire de la radio est  :",  WA.player.name);
+
+            radioCoWebSite = await WA.nav.openCoWebSite('http://localhost:5173/radio.html', true, "", 30);
+        
         } else {
             WA.state.saveVariable('radio', { 
                 playerOwner: radio.playerOwner,
                 playerNumber: radio.playerNumber++
             });
+
+            console.log('Ne peut pas changer de user')
         }
     });
 
@@ -62,6 +68,7 @@ WA.onInit().then(() => {
             });
             console.log('La playerOwner reset à null');
         }
+        radioCoWebSite.close();
     });
 
 
