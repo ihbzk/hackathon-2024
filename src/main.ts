@@ -1,10 +1,13 @@
 /// <reference types="@workadventure/iframe-api-typings" />
 
+import { CoWebsite } from "@workadventure/iframe-api-typings/play/src/iframe_api";
 import { bootstrapExtra } from "@workadventure/scripting-api-extra";
 
 console.log('Script started successfully');
 
 let currentPopup: any = undefined;
+let radioCoWebSite: CoWebsite;
+
 
 // Waiting for the API to be ready
 WA.onInit().then(() => {
@@ -19,10 +22,8 @@ WA.onInit().then(() => {
 
     WA.room.area.onLeave('clock').subscribe(closePopup)
 
-    var radioCoWebSite = undefined;
-
     WA.room.area.onEnter('radio').subscribe(async () => {
-        radioCoWebSite = await WA.nav.openCoWebSite('http://localhost:5173/radioEveryWhere.html', true, "", 30);
+        radioCoWebSite = await WA.nav.openCoWebSite('http://localhost:5173/radio.html', true, "", 30);
         WA.event.broadcast("bell-rang", {});
         WA.player.state.saveVariable("radio_can_play", false);
         console.log(WA.player.state.radio);
