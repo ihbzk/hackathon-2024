@@ -3,11 +3,49 @@
     <head>
         <style>
             body {
-                background-color: white;
+                background-color: rgba(255, 255, 255, 0.8);
+                border-radius: 1rem;
             }
+
             #radio-selection {
                 display: flex;
                 flex-direction: column;
+            }
+
+            .radioIcon{
+                width: 60px;
+                height: 60px;
+                aspect-ratio: 1/1;
+                margin-right: 20px;
+            }
+
+            .radioIconSelected {
+                opacity: 50%;
+            }
+
+            .list-radio-stations {
+                list-style: none;
+            }
+
+            .station-radio:not(:last-child) {
+                border-bottom: 1px lightgray dashed;
+            }
+
+            .station-radio {
+                padding: 5px;
+                display: flex;
+                flex-wrap: nowrap;
+            }
+
+            .station-radio-selected {
+                background-color: lightgray;
+                color: white;
+                border-radius: 10px;
+            }
+
+            .station-radio p {
+                font-size: 18px;
+                font-weight: 800;
             }
 
         </style>
@@ -17,24 +55,45 @@
     <body>
         <div>
             <h3>RADIO</h3>
-            <button id="play">Play</button>
-
-            <div id="radio-selection">
-                <img src="./images/radio_france_info.png" alt="Radio France" url="https://direct.franceinfo.fr/live/franceinfo-hifi.aac" idFirstTile="5057">
-                <img src="./images/radio_france_musique.png" alt="Radio France Musique" url="https://direct.franceinter.fr/live/francemusique-hifi.aac" idFirstTile="5061">
-                <img src="./images/radio_france_culture.png" alt="Radio France Culture" url="https://direct.franceculture.fr/live/franceculture-hifi.aac" idFirstTile="5053">
+            <div>
+                <ul class="list-radio-stations">
+                    <li class="station-radio" url="http://direct.franceinfo.fr/live/franceinfo-hifi.aac" idFirstTile="5057">
+                        <img class="radioIcon" src="./images/radio_france_info.png" alt="Radio France">
+                        <p>France info</p>
+                    </li>
+                    <li class="station-radio" url="http://direct.franceinter.fr/live/francemusique-hifi.aac" idFirstTile="5061">
+                        <img class="radioIcon" src="./images/radio_france_musique.png" alt="Radio France Musique">
+                        <p>France musique</p>
+                    </li>
+                    <li class="station-radio" url="http://direct.franceculture.fr/live/franceculture-hifi.aac" idFirstTile="5053">
+                        <img class="radioIcon" src="./images/radio_france_culture.png" alt="Radio France Culture">
+                        <p>France culture</p>
+                    </li>
+                </ul>
             </div>
-            
-            <script>
-                var images = document.getElementsByTagName("img");
 
+            <script>
+                var images = document.getElementsByClassName("station-radio");
+
+                // Definition des click event pour le propriétaire de la salle
                 for (var i = 0; i < images.length; i++) {
-                    images[i].addEventListener("click", function() {
+                    images[i].addEventListener("click", function () {
+
+                        toogleSelected(this);
+
                         var url = this.getAttribute("url");
                         var idFirstTile = this.getAttribute("idFirstTile");
                         changeRadio(url, idFirstTile);
-
                     });
+                }
+
+                function toogleSelected(SelectedImage) {
+                    console.log('SelectedImage', SelectedImage);
+                    for (var i = 0; i < images.length; i++) {
+                        images[i].classList.remove("radioIconSelected");
+                    }
+
+                    SelectedImage.classList.add("radioIconSelected");
                 }
 
                 async function changeRadio(url, idFirstTile){
