@@ -19,40 +19,28 @@ WA.onInit().then(() => {
 
     WA.room.area.onLeave('clock').subscribe(closePopup)
 
-    WA.room.area.onLeave('radio').subscribe(async () => {
-
-        await WA.players.configureTracking({
-            players: true,
-            movement: false,
-          });
-
-        const players = Array.from(WA.players.list());
-
-        const radio = await WA.state.loadVariable('radio');
-
-        if(radio.radioOwnerUserId && players.length > 0){
-            const radioOwnerUserId = players[0].uuid;
-            WA.state.saveVariable('radio', { radioOwnerUserId});
-            console.log("Le nouveau propriétaire de la radio  :", radioOwnerUserId);
-        }
-        //TODO: Vérifier s'il y a aucun player dans la room ppur mettre la variable radioOwnerUserId à null
-
-    });
-    
-    WA.room.area.onEnter('radio').subscribe(async () => {
+    WA.room.area.onEnter('radio').subscribe(() => {
         WA.event.broadcast("bell-rang", {});
-
-        let radio = await WA.state.loadVariable('radio');
-        
-        if (!radio.radioOwnerUserId) {
-            const radioOwnerUserId = WA.player.id;
-            WA.state.saveVariable('radio', { radioOwnerUserId });
-            console.log("Le nouveau propriétaire de la radio  :", radioOwnerUserId);
-
-        } else {
-            console.log("Il y a déjà un propriétaire pour la radio :", radio.radioOwnerUserId);
-        }
+        WA.player.state.saveVariable("radio_can_play", false);
+        console.log(WA.player.state.radio);
     });
+
+    WA.room.area.onLeave('radio').subscribe(() => {
+        // TODO FIX : need an action from user to replay music
+        WA.player.state.saveVariable("radio_can_play", true);
+    });
+
+    WA.room.website.create(
+        {
+            name: 'radioEveryWhere',
+            url: 'http://localhost:5173/radioEveryWhereController.html',
+            position: { x: 0, y: 0, width: 1, height: 1 },
+            visible: false,
+            allowApi: true,
+            origin: 'map',
+            scale: 1
+        }
+    );
 
     const bellSound = WA.sound.loadSound("sounds/door-bell-1.mp3");
 
@@ -76,5 +64,4 @@ function closePopup(){
     }
 }
 
-export { };
-
+export {};

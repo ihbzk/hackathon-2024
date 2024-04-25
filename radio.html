@@ -20,56 +20,26 @@
             <button id="play">Play</button>
 
             <div id="radio-selection">
-                <img src="/images/radio_france_info.png" alt="Radio France" url="   https://direct.franceinfo.fr/live/franceinfo-hifi.aac">
+                <img src="/images/radio_france_info.png" alt="Radio France" url="https://direct.franceinfo.fr/live/franceinfo-hifi.aac">
                 <img src="/images/radio_france_musique.png" alt="Radio France Musique" url="https://direct.franceinter.fr/live/francemusique-hifi.aac">
                 <img src="/images/radio_france_culture.png" alt="Radio France Culture" url="https://direct.franceculture.fr/live/franceculture-hifi.aac">
             </div>
             
             <script>
-                var audio = new Audio();
-                var playButton = document.getElementById("play");
                 var images = document.getElementsByTagName("img");
-
-                playButton.addEventListener("click", function() {
-                    if (audio.paused) {
-                        toogleRadio();
-                    } else {
-                        toogleRadio();
-                    }
-                });
 
                 for (var i = 0; i < images.length; i++) {
                     images[i].addEventListener("click", function() {
                         var url = this.getAttribute("url");
-                        audio.src = url;
-                        audio.play();
-                        playButton.innerHTML = "Pause";
+                        changeRadio(url);
+
                     });
                 }
 
-                WA.state.onVariableChange('radio').subscribe((value) => {
-                    console.log('Variable "config" changed. New value: ', value.radioUrl);
-                    audio.src = value.radioUrl;
-                    toogleRadio();
-                });
-
-                function toogleButton() {
-                    if (audio.paused) {
-                        playButton.innerHTML = "Play";
-                    } else {
-                        playButton.innerHTML = "Pause";
-                    }
-                }
-
-
-                function toogleRadio() {
-                    if (audio.paused) {
-                        audio.play();
-                        playButton.innerHTML = "Pause";
-                    } else {
-                        audio.pause();
-                        playButton.innerHTML = "Play";
-                    }
+                async function changeRadio(url) {
+                    const area = await WA.room.area.get('radio');
+                    console.log('Area', area);
+                    area.setProperty('playAudio', url);
                 }
 
 
