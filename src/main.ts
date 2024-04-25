@@ -49,8 +49,6 @@ WA.onInit().then(() => {
                 playerOwner: radio.playerOwner,
                 playerNumber: radio.playerNumber++
             });
-
-            console.log('Ne peut pas changer de user')
         }
     });
 
