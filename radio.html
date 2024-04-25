@@ -20,9 +20,9 @@
             <button id="play">Play</button>
 
             <div id="radio-selection">
-                <img src="/images/radio_france_info.png" alt="Radio France" url="https://direct.franceinfo.fr/live/franceinfo-hifi.aac" idFirstTile="5053">
-                <img src="/images/radio_france_musique.png" alt="Radio France Musique" url="https://direct.franceinter.fr/live/francemusique-hifi.aac">
-                <img src="/images/radio_france_culture.png" alt="Radio France Culture" url="https://direct.franceculture.fr/live/franceculture-hifi.aac">
+                <img src="/images/radio_france_info.png" alt="Radio France" url="https://direct.franceinfo.fr/live/franceinfo-hifi.aac" idFirstTile="5057">
+                <img src="/images/radio_france_musique.png" alt="Radio France Musique" url="https://direct.franceinter.fr/live/francemusique-hifi.aac" idFirstTile="5061">
+                <img src="/images/radio_france_culture.png" alt="Radio France Culture" url="https://direct.franceculture.fr/live/franceculture-hifi.aac" idFirstTile="5053">
             </div>
             
             <script>
@@ -48,6 +48,7 @@
                     const tilesArea = await WA.room.area.get(area.name + 'Logo');
                     const x = parseInt(tilesArea.x / 32);
                     const y = parseInt(tilesArea.y / 32);
+                    // ROUND PLUS PROCHE
 
                     WA.room.setTiles([
                         { x: x, y: y, tile: Number(idFirstTile), layer: "floor/floor4" },
