@@ -101,6 +101,9 @@ WA.onInit().then(() => {
             console.log('La playerOwner reset à null');
         }
         radioUIWebsite.close();
+
+        // DONT INCREMENT RADIO TIME WHEN LEAVING RADIO
+        WA.player.state.saveVariable('isPlaying', {isPlaying: false, name: '', url: ''});
         console.log('La playerOwner reset à null');
         }
     );
@@ -117,6 +120,28 @@ WA.onInit().then(() => {
             scale: 1
         }
     );
+
+    function incrementRadio(){
+
+        // RESET WA.player.state.saveVariable("radioTime", {});
+        const isPlaying = WA.player.state.isPlaying;
+
+        console.log("Incrementing radio time", isPlaying);
+
+        if( isPlaying.isPlaying && isPlaying.name){
+            var radioTime = WA.player.state.radioTime || {};
+            console.log("radioTime", radioTime)
+            radioTime[isPlaying.name] = radioTime[isPlaying.name] + 1 || 1;
+
+            WA.player.state.saveVariable("radioTime", radioTime);
+            console.log("Radio time is now", radioTime);
+        }
+        else{
+            console.log("Player is not playing, radio time is not incremented");
+        }
+    }
+
+    setInterval(incrementRadio, 10000);
 
     const bellSound = WA.sound.loadSound("sounds/door-bell-1.mp3");
 
