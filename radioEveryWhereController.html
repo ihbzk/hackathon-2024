@@ -42,10 +42,10 @@
                 }
                 else {
                     console.log('Radio playing else', bool);
+                    pause();
                     WA.ui.actionBar.removeButton('radio-play-btn');
                     WA.ui.actionBar.removeButton('radio-btn');
                     WA.ui.actionBar.removeButton('radio-pause-btn');
-                    pause();
                 }
             });
 
