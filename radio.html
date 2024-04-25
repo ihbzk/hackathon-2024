@@ -55,7 +55,7 @@
     <body>
         <div>
             <h3>RADIO</h3>
-            <div id="choosePanel">
+            <div>
                 <ul class="list-radio-stations">
                     <li class="station-radio" url="http://direct.franceinfo.fr/live/franceinfo-hifi.aac" idFirstTile="5057">
                         <img class="radioIcon" src="/images/radio_france_info.png" alt="Radio France">
@@ -88,9 +88,7 @@
                 }
 
                 function toogleSelected(SelectedImage) {
-
                     console.log('SelectedImage', SelectedImage);
-
                     for (var i = 0; i < images.length; i++) {
                         images[i].classList.remove("radioIconSelected");
                     }
