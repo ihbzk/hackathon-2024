@@ -50,10 +50,10 @@
                     const y = parseInt(tilesArea.y / 32);
 
                     WA.room.setTiles([
-                        { x: x, y: y, tile: idFirstTile, layer: "floor/floor4" },
-                        { x: x+1, y: y, tile: idFirstTile+1, layer: "floor/floor4" },
-                        { x: x, y: y+1, tile: idFirstTile+2, layer: "floor/floor4" },
-                        { x: x+1, y: y+1, tile: idFirstTile+3, layer: "floor/floor4" },
+                        { x: x, y: y, tile: Number(idFirstTile), layer: "floor/floor4" },
+                        { x: x+1, y: y, tile: Number(idFirstTile)+1, layer: "floor/floor4" },
+                        { x: x, y: y+1, tile: Number(idFirstTile)+2, layer: "floor/floor4" },
+                        { x: x+1, y: y+1, tile: Number(idFirstTile)+3, layer: "floor/floor4" },
                     ]);
 
                 }
