@@ -70,7 +70,7 @@
                     toolTip: 'Radio',
                     callback: async (event) => {
                         console.log('Button clicked radio menu', event);
-                        coWebsite = await WA.nav.openCoWebSite('http://localhost:5173/radioEveryWhere.html', true);
+                        coWebsite = await WA.nav.openCoWebSite('http://localhost:5173/radioEveryWhere.html', true, "", 30);
                     }
                 });
             }
@@ -114,6 +114,7 @@
                 audio.play();
                 addRadioPause();
                 console.log('Play');
+                console.log('CoWebSite', coWebSite);
             }
 
             function pause(){
