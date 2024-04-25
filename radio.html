@@ -6,9 +6,60 @@
                 background-color: rgba(255, 255, 255, 0.8);
                 border-radius: 1rem;
             }
+
             #radio-selection {
                 display: flex;
                 flex-direction: column;
+            }
+
+            .playIcon, .pauseIcon {
+                width: 40px !important;
+                height: 40px !important;
+                margin-left: 10px;
+                margin-top: 10px;
+                position: absolute;
+                z-index: 1;
+            }
+
+            .radioIcon, .radioIconSelected {
+                width: 60px;
+                height: 60px;
+                margin-right: 20px;
+            }
+
+            .radioIconSelected {
+                opacity: 50%;
+            }
+
+            .list-radio-stations {
+                height: 600px;
+                width: 300px;
+                list-style: none;
+            }
+
+            .station-radio:not(:last-child) {
+                border-bottom: 1px lightgray dashed;
+            }
+
+            .station-radio {
+                padding: 5px;
+            }
+
+            .station-radio-selected {
+                padding: 5px;
+                background-color: lightgray;
+                color: white;
+                border-radius: 10px;
+            }
+
+            .station-radio-box {
+                display: flex;
+                flex-wrap: nowrap;
+            }
+
+            .station-radio-box > p {
+                font-size: 18px;
+                font-weight: 900;
             }
 
         </style>
@@ -18,24 +69,119 @@
     <body>
         <div>
             <h3>RADIO</h3>
-            <button id="play">Play</button>
-
-            <div id="radio-selection">
-                <img src="/images/radio_france_info.png" alt="Radio France" url="https://direct.franceinfo.fr/live/franceinfo-hifi.aac" idFirstTile="5057">
-                <img src="/images/radio_france_musique.png" alt="Radio France Musique" url="https://direct.franceinter.fr/live/francemusique-hifi.aac" idFirstTile="5061">
-                <img src="/images/radio_france_culture.png" alt="Radio France Culture" url="https://direct.franceculture.fr/live/franceculture-hifi.aac" idFirstTile="5053">
+            <div id="choosePanel">
+                <ul class="list-radio-stations">
+                    <li class="station-radio">
+                        <div class="station-radio-box">
+                            <img class="pauseIcon playerIcon" src="/images/pause.svg" hidden="hidden"/>
+                            <img class="playIcon playerIcon" src="/images/play.svg" hidden="hidden"/>
+                            <img class="radioIcon playerIcon" src="/images/radio_france_info.png" alt="Radio France" url="http://direct.franceinfo.fr/live/franceinfo-hifi.aac">
+                            <p>France info</p>
+                        </div>
+                    </li>
+                    <li class="station-radio">
+                        <div class="station-radio-box">
+                            <img class="pauseIcon playerIcon" src="/images/pause.svg" hidden="hidden"/>
+                            <img class="playIcon playerIcon" src="/images/play.svg" hidden="hidden"/>
+                            <img class="radioIcon playerIcon" src="/images/radio_france_musique.png" alt="Radio France Musique" url="http://direct.franceinter.fr/live/francemusique-hifi.aac">
+                            <p>France musique</p>
+                        </div>
+                    </li>
+                    <li class="station-radio">
+                        <div class="station-radio-box">
+                            <img class="pauseIcon playerIcon" src="/images/pause.svg" hidden="hidden"/>
+                            <img class="playIcon playerIcon" src="/images/play.svg" hidden="hidden"/>
+                            <img class="radioIcon playerIcon" src="/images/radio_france_culture.png" alt="Radio France Culture" url="http://direct.franceculture.fr/live/franceculture-hifi.aac">
+                            <p>France culture</p>
+                        </div>
+                    </li>
+                </ul>
             </div>
-            
+
             <script>
-                var images = document.getElementsByTagName("img");
+                var audio = new Audio();
+                function initRadio() {
+                    var images = document.getElementsByClassName("playerIcon");
 
-                for (var i = 0; i < images.length; i++) {
-                    images[i].addEventListener("click", function() {
-                        var url = this.getAttribute("url");
-                        var idFirstTile = this.getAttribute("idFirstTile");
-                        changeRadio(url, idFirstTile);
+                    // Definition des click event pour le propriétaire de la salle
+                    for (var i = 0; i < images.length; i++) {
+                        images[i].addEventListener("click", function () {
 
-                    });
+                            gestionAffichageRadioOwner(this);
+
+                            var url = this.getAttribute("url");
+                            var idFirstTile = this.getAttribute("idFirstTile");
+                            changeRadio(url, idFirstTile);
+                        });
+                    }
+                }
+
+                function searchChildByClassName(element, name){
+                    var childClassList;
+                    for (let i=0; i < element.children.length; i++) {
+                        childClassList = element.children[i].classList;
+                        for (let j=0; j < childClassList.length; j++) {
+                            if (childClassList[j] === name) {
+                                return element.children[i];
+                            }
+                        }
+                    }
+                    return "";
+                }
+
+                function replaceAllClassName(oldName, newName){
+                    var selectedRadios = document.getElementsByClassName(oldName);
+                    for (let i=0; i < selectedRadios.length; i++) {
+                        selectedRadios[i].classList.replace(oldName, newName);
+                    }
+                }
+
+                function hideAllButtons() {
+                    var playButtons = document.getElementsByClassName("playIcon");
+                    var pauseButtons = document.getElementsByClassName("pauseIcon");
+
+                    for (let i=0; i < playButtons.length; i++) {
+                        playButtons[i].hidden = true;
+                        pauseButtons[i].hidden = true;
+                    }
+                }
+
+                function gestionAffichageRadioOwner(composantSelect) {
+                    var parentContainer = composantSelect.parentNode;
+                    var radioIcon = searchChildByClassName(parentContainer, "radioIcon");
+
+                    if (radioIcon === "") {
+                        radioIcon = searchChildByClassName(parentContainer, "radioIconSelected");
+                    }
+
+                    var url = radioIcon.getAttribute("url");
+                    var playIcon = searchChildByClassName(parentContainer, "playIcon");
+                    var pauseIcon = searchChildByClassName(parentContainer, "pauseIcon");
+
+                    if (audio.src === url && !audio.paused) {
+                        playIcon.hidden = true;
+                        pauseIcon.hidden = false;
+                        audio.src = url;
+                        audio.pause();
+                    } else if (audio.src === url) {
+                        playIcon.hidden = false;
+                        pauseIcon.hidden = true;
+                        audio.src = url;
+                        audio.play();
+                    } else {
+                        replaceAllClassName("radioIconSelected", "radioIcon");
+                        hideAllButtons();
+
+                        radioIcon = searchChildByClassName(parentContainer, "radioIcon");
+                        radioIcon.classList.replace("radioIcon", "radioIconSelected");
+                        playIcon.hidden = false;
+
+                        replaceAllClassName("station-radio-selected", "station-radio");
+                        parentContainer.parentNode.classList.replace("station-radio", "station-radio-selected");
+
+                        audio.src = url;
+                        audio.play();
+                    }
                 }
 
                 async function changeRadio(url, idFirstTile){
@@ -58,6 +204,7 @@
                     ]);
 
                 }
+                initRadio();
 
             </script>
 
