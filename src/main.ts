@@ -5,10 +5,10 @@ import { bootstrapExtra } from "@workadventure/scripting-api-extra";
 
 console.log('Script started successfully');
 
-let currentPopup: Popup;
+let currentPopup: Popup | undefined;
 
 interface Radio {
-    playerOwner: string 
+    playerOwner: string
     playerNumber: number
 }
 
@@ -24,7 +24,6 @@ WA.onInit().then(() => {
     })
 
     WA.room.area.onLeave('clock').subscribe(closePopup)
-    console.log('Player leaving the radio station ...');
     
     WA.room.area.onEnter('radio').subscribe( async () => {
         WA.event.broadcast("bell-rang", {});
