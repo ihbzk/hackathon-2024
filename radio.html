@@ -3,8 +3,9 @@
     <head>
         <style>
             body {
-                background-color: rgba(255, 255, 255, 0.8);
+                background-color: rgba(27,27,41,.95);
                 border-radius: 1rem;
+                margin: 0;
             }
 
             #radio-selection {
@@ -19,12 +20,10 @@
                 margin-right: 20px;
             }
 
-            .radioIconSelected {
-                opacity: 50%;
-            }
-
             .list-radio-stations {
                 list-style: none;
+                padding-left: 10%;
+                padding-right: 10%;
             }
 
             .station-radio:not(:last-child) {
@@ -38,14 +37,30 @@
             }
 
             .station-radio-selected {
-                background-color: lightgray;
-                color: white;
-                border-radius: 10px;
+                background-color: rgb(38, 189, 210);
+                color: rgb(27 27 41);
+                border-radius: 15px;
+            }
+
+            .station-radio-selected p {
+                color: rgb(27 27 41) !important;
             }
 
             .station-radio p {
-                font-size: 18px;
+                color: white;
+                font-family: Roboto,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif,"Apple Color Emoji","Segoe UI Emoji",Segoe UI Symbol,"Noto Color Emoji";
+                font-size: larger;
                 font-weight: 800;
+            }
+
+            h2 {
+                color: white;
+                font-family: Roboto,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif,"Apple Color Emoji","Segoe UI Emoji",Segoe UI Symbol,"Noto Color Emoji";
+                text-align: center;
+                border-bottom: 1px lightgray dashed;
+                margin: 0;
+                padding-top: 15px;
+                padding-bottom: 15px;
             }
 
         </style>
@@ -54,7 +69,7 @@
 
     <body>
         <div>
-            <h3>RADIO</h3>
+            <h2>Selection de radio</h2>
             <div>
                 <ul class="list-radio-stations">
                     <li class="station-radio" url="http://direct.franceinfo.fr/live/franceinfo-hifi.aac" idFirstTile="5057">
@@ -90,10 +105,10 @@
                 function toogleSelected(SelectedImage) {
                     console.log('SelectedImage', SelectedImage);
                     for (var i = 0; i < images.length; i++) {
-                        images[i].classList.remove("radioIconSelected");
+                        images[i].classList.remove("station-radio-selected");
                     }
 
-                    SelectedImage.classList.add("radioIconSelected");
+                    SelectedImage.classList.add("station-radio-selected");
                 }
 
                 async function changeRadio(url, idFirstTile){

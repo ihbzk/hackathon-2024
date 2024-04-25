@@ -75,28 +75,31 @@
                     toolTip: 'Radio',
                     callback: async (event) => {
                         console.log('Button clicked radio menu', event);
-
                         // TODO ! CAN OPEN MULTI TAB WHEN THE BUTTON IS SPAMMED
+                        console.log("coucou");
+                        console.log(document);
+                        console.log(document.getElementById("coucou"));
                         if(radioUIWebsite !== undefined){
                             radioUIWebsite.close();
+                            radioUIWebsite = undefined;
+                        } else {
+                            radioUIWebsite = await WA.ui.website.open({
+                                url: "http://localhost:5173/radioEveryWhere.html",
+                                allowApi: true,
+                                position: {
+                                    vertical: "top",
+                                    horizontal: "right",
+                                },
+                                size: {
+                                    height: "35vh",
+                                    width: "35vw",
+                                },
+                                margin: {
+                                    top: "5vh",
+                                    right: "5vw",
+                                },
+                            });
                         }
-                        
-                        radioUIWebsite = await WA.ui.website.open({
-                            url: "http://localhost:5173/radioEveryWhere.html",
-                            allowApi: true,
-                            position: {
-                                vertical: "top",
-                                horizontal: "right",
-                            },
-                            size: {
-                                height: "35vh",
-                                width: "35vw",
-                            },
-                            margin: {
-                                top: "5vh",
-                                right: "5vw",
-                            },
-                        });
                     }
                 });
             }
