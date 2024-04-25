@@ -26,7 +26,6 @@ WA.onInit().then(() => {
         radioCoWebSite = await WA.nav.openCoWebSite('http://localhost:5173/radio.html', true, "", 30);
         WA.event.broadcast("bell-rang", {});
         WA.player.state.saveVariable("radio_can_play", false);
-        console.log(WA.player.state.radio);
     });
 
     WA.room.area.onLeave('radio').subscribe(() => {
