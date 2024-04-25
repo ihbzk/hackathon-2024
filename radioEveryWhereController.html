@@ -11,7 +11,7 @@
 
             // ON LOAD
             var audio = new Audio();
-            var coWebsite = undefined;
+            var radioUIWebsite = undefined;
             addRadioMenu();
 
             audio.addEventListener('play', function() {
@@ -40,9 +40,9 @@
                         addRadioPlay();
                     }
 
-                    if(coWebsite !== undefined){
-                        console.log('Closing coWebsite radioEveryWhereController', coWebsite);
-                        coWebsite.close();
+                    if(radioUIWebsite !== undefined){
+                        console.log('Closing UiWebSite radioEveryWhereController', radioUIWebsite);
+                        radioUIWebsite.close();
                     }
 
                 }
@@ -77,10 +77,26 @@
                         console.log('Button clicked radio menu', event);
 
                         // TODO CAN OPEN MULTI TAB WHEN THE BUTTON IS SPAMMED
-                        if(coWebsite !== undefined){
-                            coWebsite.close();
+                        if(radioUIWebsite !== undefined){
+                            radioUIWebsite.close();
                         }
-                        coWebsite = await WA.nav.openCoWebSite('http://localhost:5173/radioEveryWhere.html', true, "", 30);
+                        
+                        radioUIWebsite = await WA.ui.website.open({
+                            url: "http://localhost:5173/radioEveryWhere.html",
+                            allowApi: true,
+                            position: {
+                                vertical: "top",
+                                horizontal: "right",
+                            },
+                            size: {
+                                height: "35vh",
+                                width: "35vw",
+                            },
+                            margin: {
+                                top: "5vh",
+                                right: "5vw",
+                            },
+                        });
                     }
                 });
             }

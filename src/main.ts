@@ -1,12 +1,12 @@
 /// <reference types="@workadventure/iframe-api-typings" />
 
-import { CoWebsite, Popup } from "@workadventure/iframe-api-typings";
+import { UIWebsite, Popup } from "@workadventure/iframe-api-typings";
 import { bootstrapExtra } from "@workadventure/scripting-api-extra";
 
 console.log('Script started successfully');
 
 let currentPopup: Popup | undefined;
-let radioCoWebSite: CoWebsite;
+let radioUIWebsite: UIWebsite;
 
 interface Radio {
     playerOwner: string
@@ -42,7 +42,22 @@ WA.onInit().then(() => {
             });
             console.log("Le propriétaire de la radio est  :",  WA.player.name);
 
-            radioCoWebSite = await WA.nav.openCoWebSite('http://localhost:5173/radio.html', true, "", 30);
+            radioUIWebsite = await WA.ui.website.open({
+                url: "http://localhost:5173/radio.html",
+                allowApi: true,
+                position: {
+                    vertical: "top",
+                    horizontal: "right",
+                },
+                size: {
+                    height: "35vh",
+                    width: "35vw",
+                },
+                margin: {
+                    top: "5vh",
+                    right: "5vw",
+                },
+            });
         
         } else {
             WA.state.saveVariable('radio', { 
@@ -66,7 +81,7 @@ WA.onInit().then(() => {
             });
             console.log('La playerOwner reset à null');
         }
-        radioCoWebSite.close();
+        radioUIWebsite.close();
     });
 
 
