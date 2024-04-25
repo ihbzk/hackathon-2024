@@ -1162,6 +1162,19 @@
          "tilecount":6,
          "tileheight":32,
          "tilewidth":32
+        }, 
+        {
+         "columns":2,
+         "firstgid":5053,
+         "image":"tilesets\/radio_france_culture 64x64.png",
+         "imageheight":64,
+         "imagewidth":64,
+         "margin":0,
+         "name":"radio_france_culture 64x64",
+         "spacing":0,
+         "tilecount":4,
+         "tileheight":32,
+         "tilewidth":32
         }],
  "tilewidth":32,
  "type":"map",
