@@ -20,9 +20,9 @@
             <button id="play">Play</button>
 
             <div id="radio-selection">
-                <img src="/images/radio_france_info.png" alt="Radio France" url="https://direct.franceinfo.fr/live/franceinfo-hifi.aac">
-                <img src="/images/radio_france_musique.png" alt="Radio France Musique" url="https://direct.franceinter.fr/live/francemusique-hifi.aac">
-                <img src="/images/radio_france_culture.png" alt="Radio France Culture" url="https://direct.franceculture.fr/live/franceculture-hifi.aac">
+                <img src="/images/radio_france_info.png" alt="Radio France" url="https://direct.franceinfo.fr/live/franceinfo-hifi.aac" idFirstTile="5057">
+                <img src="/images/radio_france_musique.png" alt="Radio France Musique" url="https://direct.franceinter.fr/live/francemusique-hifi.aac" idFirstTile="5061">
+                <img src="/images/radio_france_culture.png" alt="Radio France Culture" url="https://direct.franceculture.fr/live/franceculture-hifi.aac" idFirstTile="5053">
             </div>
             
             <script>
@@ -31,17 +31,33 @@
                 for (var i = 0; i < images.length; i++) {
                     images[i].addEventListener("click", function() {
                         var url = this.getAttribute("url");
-                        changeRadio(url);
+                        var idFirstTile = this.getAttribute("idFirstTile");
+                        changeRadio(url, idFirstTile);
 
                     });
                 }
 
-                async function changeRadio(url) {
+                async function changeRadio(url, idFirstTile){
                     const area = await WA.room.area.get('radio');
                     console.log('Area', area);
                     area.setProperty('playAudio', url);
+                    changeTiles(area, idFirstTile);
                 }
 
+                async function changeTiles(area, idFirstTile){
+                    const tilesArea = await WA.room.area.get(area.name + 'Logo');
+                    const x = parseInt(tilesArea.x / 32);
+                    const y = parseInt(tilesArea.y / 32);
+                    // ROUND PLUS PROCHE
+
+                    WA.room.setTiles([
+                        { x: x, y: y, tile: Number(idFirstTile), layer: "floor/floor4" },
+                        { x: x+1, y: y, tile: Number(idFirstTile)+1, layer: "floor/floor4" },
+                        { x: x, y: y+1, tile: Number(idFirstTile)+2, layer: "floor/floor4" },
+                        { x: x+1, y: y+1, tile: Number(idFirstTile)+3, layer: "floor/floor4" },
+                    ]);
+
+                }
 
             </script>
 
