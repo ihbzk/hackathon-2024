@@ -46,9 +46,8 @@
 
                 async function changeTiles(area, idFirstTile){
                     const tilesArea = await WA.room.area.get(area.name + 'Logo');
-                    const x = parseInt(tilesArea.x / 32);
-                    const y = parseInt(tilesArea.y / 32);
-                    // ROUND PLUS PROCHE
+                    const x = Math.round(tilesArea.x / 32);
+                    const y = Math.round(tilesArea.y / 32);
 
                     WA.room.setTiles([
                         { x: x, y: y, tile: Number(idFirstTile), layer: "floor/floor4" },
