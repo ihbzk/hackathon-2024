@@ -13,6 +13,16 @@
             var audio = new Audio();
             addRadioMenu();
 
+            audio.addEventListener('play', function() {
+                console.log('Audio play');
+                WA.player.state.saveVariable('isPlaying', true);
+            });
+
+            audio.addEventListener('pause', function() {
+                console.log('Audio pause');
+                WA.player.state.saveVariable('isPlaying', false);
+            });
+
             WA.player.state.onVariableChange('radio').subscribe((url) => {
                 console.log('Radio changed controller and play', url);
                 
