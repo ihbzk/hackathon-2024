@@ -1,10 +1,16 @@
 /// <reference types="@workadventure/iframe-api-typings" />
 
+import { Popup } from "@workadventure/iframe-api-typings";
 import { bootstrapExtra } from "@workadventure/scripting-api-extra";
 
 console.log('Script started successfully');
 
-let currentPopup: any = undefined;
+let currentPopup: Popup;
+
+interface Radio {
+    playerOwner: string 
+    playerNumber: number
+}
 
 // Waiting for the API to be ready
 WA.onInit().then(() => {
@@ -18,17 +24,47 @@ WA.onInit().then(() => {
     })
 
     WA.room.area.onLeave('clock').subscribe(closePopup)
-
-    WA.room.area.onEnter('radio').subscribe(() => {
+    console.log('Player leaving the radio station ...');
+    
+    WA.room.area.onEnter('radio').subscribe( async () => {
         WA.event.broadcast("bell-rang", {});
+
         WA.player.state.saveVariable("radio_can_play", false);
-        console.log(WA.player.state.radio);
+
+        const radio: Radio = await WA.state.loadVariable('radio') as Radio;
+
+        if (!radio.playerOwner) {
+            const playerOwner = WA.player.id;
+
+            WA.state.saveVariable('radio', {
+                playerOwner,
+                playerNumber: 1
+            });
+            console.log("Le propriétaire de la radio est  :",  WA.player.name);
+        } else {
+            WA.state.saveVariable('radio', { 
+                playerOwner: radio.playerOwner,
+                playerNumber: radio.playerNumber++
+            });
+        }
     });
 
-    WA.room.area.onLeave('radio').subscribe(() => {
-        // TODO FIX : need an action from user to replay music
+    WA.room.area.onLeave('radio').subscribe(async () => {
+        console.log('Player leaving the radio station ...');
+
         WA.player.state.saveVariable("radio_can_play", true);
+
+        const radio: Radio = await WA.state.loadVariable('radio') as Radio;
+
+        if(radio.playerOwner === WA.player.id || radio.playerNumber > 0){
+            WA.state.saveVariable('radio', { 
+                playerOwner : null,
+                playerNumber: radio.playerNumber --
+            });
+            console.log('La playerOwner reset à null');
+        }
     });
+
 
     WA.room.website.create(
         {
@@ -64,4 +100,4 @@ function closePopup(){
     }
 }
 
-export {};
+export { };
