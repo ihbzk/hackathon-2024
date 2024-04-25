@@ -7,7 +7,7 @@ console.log('Script started successfully');
 
 let currentPopup: Popup | undefined;
 let radioCoWebSite: CoWebsite;
-let playerOwner: string | null
+let playerOwner: string | null = null;
 
 interface Radio {
     playerOwner: string | null
@@ -18,8 +18,6 @@ interface Radio {
 WA.onInit().then(() => {
     console.log('Scripting API ready');
     console.log('Player tags: ',WA.player.tags)
-
-    playerOwner = null;
 
     WA.room.area.onEnter('clock').subscribe(() => {
         const today = new Date();
@@ -36,7 +34,7 @@ WA.onInit().then(() => {
 
         const radio: Radio = await WA.state.loadVariable('radio') as Radio;
 
-        if (!radio.playerOwner && radio.playerNumber <= 0 ) {
+        if (!radio.playerOwner || radio.playerNumber <= 0 ) {
             const playerOwner = WA.player.id;
 
             WA.state.saveVariable('radio', {
@@ -46,12 +44,14 @@ WA.onInit().then(() => {
             console.log("Le propriétaire de la radio est  :",  WA.player.name);
 
             radioCoWebSite = await WA.nav.openCoWebSite('http://localhost:5173/radio.html', true, "", 30);
-        
         } else {
             WA.state.saveVariable('radio', { 
                 playerOwner: radio.playerOwner,
                 playerNumber: radio.playerNumber++
             });
+            if(radio.playerOwner === WA.player.id){
+                radioCoWebSite = await WA.nav.openCoWebSite('http://localhost:5173/radio.html', true, "", 30);
+            }
         }
     });
 
@@ -64,12 +64,12 @@ WA.onInit().then(() => {
 
         if(radio.playerOwner === WA.player.id ){
             WA.state.saveVariable('radio', {
-                playerOwner : null,
+                playerOwner,
                 playerNumber: radio.playerNumber -1
             });
-            console.log('La playerOwner reset à null');
-        }
         radioCoWebSite.close();
+        console.log('La playerOwner reset à null');
+        }
     });
 
 
