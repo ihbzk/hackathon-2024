@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <style>
+            body {
+                background-color: white;
+            }
+            #radio-selection {
+                display: flex;
+                flex-direction: column;
+            }
+
+        </style>
+        <script src="https://play.workadventu.re/iframe_api.js"></script>
+    </head>
+
+    <body>
+        <div>
+            
+            <script>
+
+            // ON LOAD
+            var audio = new Audio();
+            var coWebSite = undefined;
+            addRadioMenu();
+
+            WA.player.state.onVariableChange('radio').subscribe((url) => {
+                console.log('Radio changed controller and play', url);
+                
+                audio.src = url;
+                play();
+            });
+
+
+            WA.player.state.onVariableChange('radio_can_play').subscribe((bool) => {
+                console.log('Radio can play', bool);
+                if (bool){
+                    addRadioMenu();
+
+                    if(audio.src !== undefined){
+                        addRadioPlay();
+                    }
+                }
+                else {
+                    console.log('Radio playing else', bool);
+                    WA.ui.actionBar.removeButton('radio-play-btn');
+                    WA.ui.actionBar.removeButton('radio-btn');
+                    WA.ui.actionBar.removeButton('radio-pause-btn');
+                    pause();
+                }
+            });
+
+            WA.player.state.onVariableChange('isPlaying').subscribe((bool) => {
+                console.log('Radio is playing', bool);
+                if(bool){
+                    WA.ui.actionBar.removeButton('radio-play-btn');
+                    addRadioPause();
+                }
+                else {
+                    WA.ui.actionBar.removeButton('radio-pause-btn');
+                    addRadioPlay();
+                }
+            });
+
+            function addRadioMenu(){
+                WA.ui.actionBar.addButton({
+                    id: 'radio-btn',
+                    type: 'action',
+                    imageSrc: 'http://localhost:5173/images/radio-solid.svg',
+                    toolTip: 'Radio',
+                    callback: async (event) => {
+                        console.log('Button clicked radio menu', event);
+                        coWebsite = await WA.nav.openCoWebSite('http://localhost:5173/radioEveryWhere.html', true, "", 30);
+                    }
+                });
+            }
+
+            function addRadioPlay(){
+                WA.ui.actionBar.addButton({
+                    id: 'radio-play-btn',
+                    type: 'action',
+                    imageSrc: 'http://localhost:5173/images/play-solid.svg',
+                    toolTip: 'Play',
+                    callback: (event) => {
+                        console.log('Button clicked radio play', event);
+
+                        play();
+                        WA.ui.actionBar.removeButton('radio-play-btn');
+                    }
+                });
+            }
+
+            function addRadioPause(){
+                WA.ui.actionBar.addButton({
+                    id: 'radio-pause-btn',
+                    type: 'action',
+                    imageSrc: 'http://localhost:5173/images/pause-solid.svg',
+                    toolTip: 'Play',
+                    callback: (event) => {
+                        console.log('Button clicked radio pause', event);
+
+                        pause();
+                        WA.ui.actionBar.removeButton('radio-pause-btn');
+                    }
+                });
+            }
+
+            function play(){
+
+                if(audio.src === undefined){
+                    return;
+                }
+                WA.player.state.saveVariable('isPlaying', true);
+                audio.play();
+                addRadioPause();
+                console.log('Play');
+                console.log('CoWebSite', coWebSite);
+            }
+
+            function pause(){
+
+                if(audio.src === undefined){
+                    return;
+                }
+
+                WA.player.state.saveVariable('isPlaying', false);
+                audio.pause();
+                addRadioPlay();
+                console.log('Pause');
+            }
+
+        
+            </script>
+
+        </div>
+    </body>
+</html>

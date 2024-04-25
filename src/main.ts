@@ -19,42 +19,35 @@ WA.onInit().then(() => {
 
     WA.room.area.onLeave('clock').subscribe(closePopup)
 
-    let radioWebsite: any;
-
-    WA.room.area.onEnter('radio').subscribe(async () => {
-        console.log("Entering visibleNote layer");
-
-        radioWebsite = await WA.ui.website.open({
-            url: "./radio.html",
-            position: {
-                vertical: "top",
-                horizontal: "middle",
-            },
-            size: {
-                height: "40vh",
-                width: "50vw",
-            },
-            margin: {
-                top: "10vh",
-            },
-            allowApi: true,
-        });
-
+    WA.room.area.onEnter('radio').subscribe(() => {
         WA.event.broadcast("bell-rang", {});
-
+        WA.player.state.saveVariable("radio_can_play", false);
+        console.log(WA.player.state.radio);
     });
+
+    WA.room.area.onLeave('radio').subscribe(() => {
+        // TODO FIX : need an action from user to replay music
+        WA.player.state.saveVariable("radio_can_play", true);
+    });
+
+    WA.room.website.create(
+        {
+            name: 'radioEveryWhere',
+            url: 'http://localhost:5173/radioEveryWhereController.html',
+            position: { x: 0, y: 0, width: 1, height: 1 },
+            visible: false,
+            allowApi: true,
+            origin: 'map',
+            scale: 1
+        }
+    );
 
     const bellSound = WA.sound.loadSound("sounds/door-bell-1.mp3");
 
     // When the bell-rang event is received
-    WA.event.on("bell-rang").subscribe(({name, data, senderId}) => {
+    WA.event.on("bell-rang").subscribe(() => {
       // Play the sound of the bell
       bellSound.play({})
-    });
-
-    WA.room.area.onLeave('radio').subscribe(() => {
-        console.log("Leaving visibleNote layer");
-        radioWebsite.close();
     });
 
     // The line below bootstraps the Scripting API Extra library that adds a number of advanced properties/features to WorkAdventure
