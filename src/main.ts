@@ -7,9 +7,10 @@ console.log('Script started successfully');
 
 let currentPopup: Popup | undefined;
 let radioCoWebSite: CoWebsite;
+let playerOwner: string | null
 
 interface Radio {
-    playerOwner: string
+    playerOwner: string | null
     playerNumber: number
 }
 
@@ -17,6 +18,8 @@ interface Radio {
 WA.onInit().then(() => {
     console.log('Scripting API ready');
     console.log('Player tags: ',WA.player.tags)
+
+    playerOwner = null;
 
     WA.room.area.onEnter('clock').subscribe(() => {
         const today = new Date();
@@ -33,7 +36,7 @@ WA.onInit().then(() => {
 
         const radio: Radio = await WA.state.loadVariable('radio') as Radio;
 
-        if (!radio.playerOwner) {
+        if (!radio.playerOwner && radio.playerNumber <= 0 ) {
             const playerOwner = WA.player.id;
 
             WA.state.saveVariable('radio', {
@@ -59,10 +62,10 @@ WA.onInit().then(() => {
 
         const radio: Radio = await WA.state.loadVariable('radio') as Radio;
 
-        if(radio.playerOwner === WA.player.id || radio.playerNumber > 0){
-            WA.state.saveVariable('radio', { 
+        if(radio.playerOwner === WA.player.id ){
+            WA.state.saveVariable('radio', {
                 playerOwner : null,
-                playerNumber: radio.playerNumber --
+                playerNumber: radio.playerNumber -1
             });
             console.log('La playerOwner reset à null');
         }
