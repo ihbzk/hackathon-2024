@@ -121,11 +121,23 @@ WA.onInit().then(() => {
         }
     );
 
+    interface IsPlaying {
+        isPlaying: boolean;
+        name: string;
+        url: string;
+    }
+    
+    interface RadioTime {
+        [key: string]: number;
+    }
+    
+    let currentRadioTime: RadioTime = {};
+
     function incrementRadio(){
-        const isPlaying = WA.player.state.isPlaying;
+        const isPlaying = WA.player.state.isPlaying as IsPlaying;;
 
         if( isPlaying.isPlaying && isPlaying.name){
-            var radioTime = WA.player.state.radioTime || {};
+            let radioTime = WA.player.state.radioTime as RadioTime || currentRadioTime;
             radioTime[isPlaying.name] = (radioTime[isPlaying.name] || 0) + 1;
 
             WA.player.state.saveVariable("radioTime", radioTime);
