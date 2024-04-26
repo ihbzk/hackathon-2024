@@ -131,20 +131,47 @@ WA.onInit().then(() => {
         [key: string]: number;
     }
     
-    let currentRadioTime: RadioTime = {};
-
     function incrementRadio(){
-        const isPlaying = WA.player.state.isPlaying as IsPlaying;;
+        const isPlaying = WA.player.state.isPlaying as IsPlaying;
 
         if( isPlaying.isPlaying && isPlaying.name){
-            let radioTime = WA.player.state.radioTime as RadioTime || currentRadioTime;
+            let radioTime = WA.player.state.radioTime as RadioTime || {};
             radioTime[isPlaying.name] = (radioTime[isPlaying.name] || 0) + 1;
 
-            WA.player.state.saveVariable("radioTime", radioTime);
+            WA.player.state.saveVariable(
+                "radioTime", 
+                radioTime, 
+                {
+                    public: true,
+                    persist: true, 
+                    ttl:  31536000,
+                    scope: 'world'
+                });
         }
         else{
             console.log("Player is not playing, radio time is not incremented");
         }
+    }
+
+    async function getGlobalRadioTime(){
+        await WA.players.configureTracking({
+            players: true,
+            movement: false,
+        });
+        const players = WA.players.list();
+        let globalRadioTime: RadioTime = {};
+        for (const player of players) {
+            const radioTime = player.state.radioTime as RadioTime;
+            for (const key in radioTime) {
+                globalRadioTime[key] = (globalRadioTime[key] || 0) + radioTime[key];
+            }
+        }
+
+        const radioTime = WA.player.state.radioTime as RadioTime;
+        for (const key in radioTime) {
+            globalRadioTime[key] = (globalRadioTime[key] || 0) + radioTime[key];
+        }
+        
     }
 
     setInterval(incrementRadio, 1000);
