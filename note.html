@@ -50,29 +50,81 @@
 </head>
 
 <body>
-    <h3>Top 3 des radios que vous écoutez le plus</h3>
+    <h3 id="title"></h3>
     <div id="radioTimeDisplay"></div>
 
     <script>
-        WA.onInit().then(() => {
+
+        const url = new URL(window.location.href);
+        const type = url.searchParams.get("type");
+
+        WA.onInit().then( async () => {
             const radioTimeDisplay = document.getElementById("radioTimeDisplay");
+            const title = document.getElementById("title");
 
-            if (radioTimeDisplay) {
-                var radioTime = WA.player.state.radioTime || {};
+            if (radioTimeDisplay && title) {
 
-                if (Object.keys(radioTime).length > 0) {
-                    let formattedRadioTime = Object.entries(radioTime)
-                        .sort((a, b) => b[1] - a[1])
-                        .map(([station, time]) => `${station} : ${Math.floor(time / 3600)}h ${Math.floor((time % 3600) / 60)}m ${(time % 60)}s`)
-                        .join('<br>');
+                if(type === 'player'){
 
-                    radioTimeDisplay.innerHTML = formattedRadioTime;
-                } else {
-                    radioTimeDisplay.innerHTML = "Vous n'avez pas encore écouté de radio pour avoir un classement.";
+                    var radioTime = WA.player.state.radioTime || {};
+
+                    if (Object.keys(radioTime).length > 0) {
+                        let formattedRadioTime = Object.entries(radioTime)
+                            .sort((a, b) => b[1] - a[1])
+                            .map(([station, time]) => `${station} : ${Math.floor(time / 3600)}h ${Math.floor((time % 3600) / 60)}m ${(time % 60)}s`)
+                            .join('<br>');
+
+                        radioTimeDisplay.innerHTML = formattedRadioTime;
+                    } else {
+                        radioTimeDisplay.innerHTML = "Vous n'avez pas encore écouté de radio pour avoir un classement.";
+                    }
+
+                    title.innerHTML = "Top 3 des radios que vous écoutez le plus";
+                }
+
+                if(type === 'global'){
+
+                    const globalRadioTime = await getGlobalRadioTime();
+                    if(Object.keys(globalRadioTime).length > 0){
+                        let formattedRadioTime = Object.entries(globalRadioTime)
+                            .sort((a, b) => b[1] - a[1])
+                            .map(([station, time]) => `${station} : ${Math.floor(time / 3600)}h ${Math.floor((time % 3600) / 60)}m ${(time % 60)}s`)
+                            .join('<br>');
+
+                        radioTimeDisplay.innerHTML = formattedRadioTime;
+                    } else {
+                        radioTimeDisplay.innerHTML = "Personne n'a encore écouté de radio pour avoir un classement.";
+                    }
+
+                    title.innerHTML = "Top 3 des radios les plus écoutées";
                 }
             }
 
         }).catch(e => console.error(e));
+
+
+        async function getGlobalRadioTime(){
+            await WA.players.configureTracking({
+                players: true,
+                movement: false,
+            });
+            const players = WA.players.list();
+            const globalRadioTime = {};
+            for (const player of players) {
+                const radioTime = player.state.radioTime;
+                for (const key in radioTime) {
+                    globalRadioTime[key] = (globalRadioTime[key] || 0) + radioTime[key];
+                }
+            }
+
+            const radioTime = WA.player.state.radioTime;
+            for (const key in radioTime) {
+                globalRadioTime[key] = (globalRadioTime[key] || 0) + radioTime[key];
+            }
+
+            return globalRadioTime;
+            
+        }
     </script>
 </body>
 
