@@ -26,14 +26,40 @@
                 padding-right: 10%;
             }
 
-            .station-radio:not(:last-child) {
+            hr:not(:last-child) {
                 border-bottom: 1px lightgray dashed;
             }
 
             .station-radio {
                 padding: 5px;
+                margin: 5px;
                 display: flex;
                 flex-wrap: nowrap;
+                cursor: pointer;
+            }
+
+            .station-radio-selected.yellow {
+                background-color: #FFED00;
+            }
+
+            .station-radio-selected.yellow marquee {
+                color: #000;
+            }
+
+            .station-radio-selected.pink {
+                background-color: #A90042 !important;
+            }
+
+            .station-radio-selected.pink marquee, .station-radio-selected.pink p {
+                color: #fff !important;
+            }
+
+            .station-radio-selected.purple {
+                background-color: #8B3688 !important;
+            }
+
+            .station-radio-selected.purple marquee, .station-radio-selected.purple p {
+                color: #fff !important;
             }
 
             .station-radio-selected {
@@ -51,6 +77,8 @@
                 font-family: Roboto,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif,"Apple Color Emoji","Segoe UI Emoji",Segoe UI Symbol,"Noto Color Emoji";
                 font-size: larger;
                 font-weight: 800;
+                margin-block-start: 0;
+                margin-block-end: 0.5em;
             }
 
             h2 {
@@ -63,6 +91,22 @@
                 padding-bottom: 15px;
             }
 
+            .d-flex {
+                display: flex;
+            }
+
+            .fd-column {
+                flex-direction: column;
+            }
+
+            .text-white {
+                color: white;
+            }
+
+            .w-100 {
+                width: 100%;
+            }
+
         </style>
         <script src="https://play.workadventu.re/iframe_api.js"></script>
     </head>
@@ -72,17 +116,28 @@
             <h2>Selection de radio</h2>
             <div>
                 <ul class="list-radio-stations">
-                    <li class="station-radio" url="http://direct.franceinfo.fr/live/franceinfo-hifi.aac" idFirstTile="5057" name="France Info">
+                    <li class="station-radio yellow" url="http://direct.franceinfo.fr/live/franceinfo-hifi.aac" idFirstTile="5057" name="France Info">
                         <img class="radioIcon" src="/images/radio_france_info.png" alt="Radio France">
-                        <p>France info</p>
+                        <div class="d-flex fd-column text-white w-100">
+                            <p>France info</p>
+                            <marquee behavior="scroll" scrollamount="2">Les actualités en direct</marquee>
+                        </div>
                     </li>
-                    <li class="station-radio" url="http://direct.franceinter.fr/live/francemusique-hifi.aac" idFirstTile="5061" name="France Musique">
+                    <hr>
+                    <li class="station-radio pink" url="http://direct.franceinter.fr/live/francemusique-hifi.aac" idFirstTile="5061" name="France Musique">
                         <img class="radioIcon" src="/images/radio_france_musique.png" alt="Radio France Musique">
-                        <p>France musique</p>
+                        <div class="d-flex fd-column text-white w-100">
+                            <p>France musique</p>
+                            <marquee behavior="scroll" scrollamount="2">Musique classique en cours</marquee>
+                        </div>
                     </li>
-                    <li class="station-radio" url="http://direct.franceculture.fr/live/franceculture-hifi.aac" idFirstTile="5053" name="France Culture">
+                    <hr>
+                    <li class="station-radio purple" url="http://direct.franceculture.fr/live/franceculture-hifi.aac" idFirstTile="5053" name="France Culture">
                         <img class="radioIcon" src="/images/radio_france_culture.png" alt="Radio France Culture">
-                        <p>France culture</p>
+                        <div class="d-flex fd-column text-white w-100">
+                            <p>France culture</p>
+                            <marquee behavior="scroll" scrollamount="2">Débat culturel du jour</marquee>
+                        </div>
                     </li>
                 </ul>
             </div>
