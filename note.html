@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gochi+Hand&display=swap" rel="stylesheet">
+    <style>
+        html {
+            font-family: "Gochi Hand", cursive;
+            font-weight: 400;
+            font-style: normal;
+            height: 88%;
+            background-color: #F9E7CF;
+            border-left: 10px solid #D8CFC3;
+            border-right: 10px solid #D8CFC3;
+            border-top: 5px solid #D8CFC3;
+            box-shadow:
+                0 0 0 10px #D8CFC3,
+                0 0 0 30px #6D5B4A;
+        }
+
+        body {
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            height: 100%;
+        }
+
+        h3 {
+            font-size: 2rem;
+            color: #000000;
+            text-align: center;
+        }
+
+        #radioTimeDisplay {
+            font-size: 1.5rem;
+            color: #000000;
+            text-align: center;
+        }
+    </style>
+    <script src="https://play.workadventu.re/iframe_api.js"></script>
+</head>
+
+<body>
+    <h3>Top 3 des radios que vous ecoutez le plus</h3>
+    <div id="radioTimeDisplay"></div>
+
+    <script>
+        WA.onInit().then(() => {
+            const radioTimeDisplay = document.getElementById("radioTimeDisplay");
+
+            if (radioTimeDisplay) {
+                var radioTime = WA.player.state.radioTime || {};
+
+                if (Object.keys(radioTime).length > 0) {
+                    let formattedRadioTime = Object.entries(radioTime)
+                        .sort((a, b) => b[1] - a[1])
+                        .map(([station, time]) => `${station} : ${Math.floor(time / 3600)}h ${Math.floor((time % 3600) / 60)}m ${(time % 60)}s`)
+                        .join('<br>');
+
+                    radioTimeDisplay.innerHTML = formattedRadioTime;
+                } else {
+                    radioTimeDisplay.innerHTML = "Vous n'avez pas encore ecoute de radio pour avoir un classement.";
+                }
+            }
+
+        }).catch(e => console.error(e));
+    </script>
+</body>
+
+</html>

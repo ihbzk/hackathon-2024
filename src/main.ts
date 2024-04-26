@@ -122,26 +122,20 @@ WA.onInit().then(() => {
     );
 
     function incrementRadio(){
-
-        // RESET WA.player.state.saveVariable("radioTime", {});
         const isPlaying = WA.player.state.isPlaying;
-
-        console.log("Incrementing radio time", isPlaying);
 
         if( isPlaying.isPlaying && isPlaying.name){
             var radioTime = WA.player.state.radioTime || {};
-            console.log("radioTime", radioTime)
-            radioTime[isPlaying.name] = radioTime[isPlaying.name] + 1 || 1;
+            radioTime[isPlaying.name] = (radioTime[isPlaying.name] || 0) + 1;
 
             WA.player.state.saveVariable("radioTime", radioTime);
-            console.log("Radio time is now", radioTime);
         }
         else{
             console.log("Player is not playing, radio time is not incremented");
         }
     }
 
-    setInterval(incrementRadio, 10000);
+    setInterval(incrementRadio, 1000);
 
     const bellSound = WA.sound.loadSound("sounds/door-bell-1.mp3");
 
@@ -155,6 +149,33 @@ WA.onInit().then(() => {
     bootstrapExtra().then(() => {
         console.log('Scripting API Extra ready');
     }).catch(e => console.error(e));
+    
+    let noteWebsite: any;
+
+    WA.room.onEnterLayer("visibleNote").subscribe(async () => {
+        console.log("Entering visibleNote layer");
+
+        noteWebsite = await WA.ui.website.open({
+            url: "./note.html",
+            position: {
+                vertical: "top",
+                horizontal: "middle",
+            },
+            size: {
+                height: "30vh",
+                width: "50vw",
+            },
+            margin: {
+                top: "10vh",
+            },
+            allowApi: true,
+        });
+
+    });
+
+    WA.room.onLeaveLayer("visibleNote").subscribe(() => {
+        noteWebsite.close();
+    });
 
 }).catch(e => console.error(e));
 

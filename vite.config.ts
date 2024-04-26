@@ -28,6 +28,7 @@ export default defineConfig({
             input: {
                 index: "./index.html",
                 radio: "./radio.html",
+                note: "./note.html",
                 ...getMapsScripts(maps),
             },
         },
