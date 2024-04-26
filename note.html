@@ -58,7 +58,13 @@
         const url = new URL(window.location.href);
         const type = url.searchParams.get("type");
 
-        WA.onInit().then( async () => {
+        WA.onInit().then(() => {
+            refreshNote();
+        }).catch(e => console.error(e));
+
+        setInterval(refreshNote, 1000);
+
+        async function refreshNote(){
             const radioTimeDisplay = document.getElementById("radioTimeDisplay");
             const title = document.getElementById("title");
 
@@ -99,9 +105,7 @@
                     title.innerHTML = "Top 3 des radios les plus écoutées";
                 }
             }
-
-        }).catch(e => console.error(e));
-
+        }
 
         async function getGlobalRadioTime(){
             await WA.players.configureTracking({
