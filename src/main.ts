@@ -20,6 +20,24 @@ WA.onInit().then(() => {
     console.log('Scripting API ready');
     console.log('Player tags: ',WA.player.tags)
     initRadioRoom();
+    
+    WA.ui.onRemotePlayerClicked.subscribe(async (remotePlayer) => {
+        const radioTime = await WA.player.state.loadVariable('radioTime') as RadioTime;
+        let actionTitle = "Cliquez pour voir plus";
+    
+        if (radioTime && Object.keys(radioTime).length > 0) {
+            const mostListenedRadio = Object.entries(radioTime).reduce((a, b) => a[1] > b[1] ? a : b);
+            const hours = Math.floor(mostListenedRadio[1] / 3600);
+            const minutes = Math.floor((mostListenedRadio[1] % 3600) / 60);
+            const seconds = mostListenedRadio[1] % 60;
+    
+            actionTitle = `${remotePlayer.name} a le plus écouté la radio ${mostListenedRadio[0]} pour ${hours}h ${minutes}min ${seconds}s.`;
+        } else {
+            actionTitle = `${remotePlayer.name} n'a pas encore écouté de radio.`;
+        }
+    
+        remotePlayer.addAction(actionTitle, () => {});
+    });
 
     WA.room.area.onEnter('clock').subscribe(() => {
         const today = new Date();
