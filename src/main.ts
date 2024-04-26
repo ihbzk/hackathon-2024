@@ -180,28 +180,28 @@ WA.onInit().then(() => {
         }
     }
 
-    async function getGlobalRadioTime(){
-        await WA.players.configureTracking({
-            players: true,
-            movement: false,
-        });
-        const players = WA.players.list();
-        let globalRadioTime: RadioTime = {};
-        for (const player of players) {
-            const radioTime = player.state.radioTime as RadioTime;
-            for (const key in radioTime) {
-                globalRadioTime[key] = (globalRadioTime[key] || 0) + radioTime[key];
-            }
-        }
+    // async function getGlobalRadioTime(){
+    //     await WA.players.configureTracking({
+    //         players: true,
+    //         movement: false,
+    //     });
+    //     const players = WA.players.list();
+    //     let globalRadioTime: RadioTime = {};
+    //     for (const player of players) {
+    //         const radioTime = player.state.radioTime as RadioTime;
+    //         for (const key in radioTime) {
+    //             globalRadioTime[key] = (globalRadioTime[key] || 0) + radioTime[key];
+    //         }
+    //     }
 
-        const radioTime = WA.player.state.radioTime as RadioTime;
-        for (const key in radioTime) {
-            globalRadioTime[key] = (globalRadioTime[key] || 0) + radioTime[key];
-        }
+    //     const radioTime = WA.player.state.radioTime as RadioTime;
+    //     for (const key in radioTime) {
+    //         globalRadioTime[key] = (globalRadioTime[key] || 0) + radioTime[key];
+    //     }
         
-    }
+    // }
 
-    setInterval(incrementRadio, 1000);
+    // setInterval(incrementRadio, 1000);
 
     const bellSound = WA.sound.loadSound("sounds/door-bell-1.mp3");
 
