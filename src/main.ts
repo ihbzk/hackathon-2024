@@ -201,7 +201,7 @@ WA.onInit().then(() => {
         
     // }
 
-    // setInterval(incrementRadio, 1000);
+    setInterval(incrementRadio, 1000);
 
     const bellSound = WA.sound.loadSound("sounds/door-bell-1.mp3");
 
