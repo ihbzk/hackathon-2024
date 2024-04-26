@@ -179,14 +179,16 @@
                 }
 
                 async function changeRadio(url, name, radioName){
+
                     const area = await WA.room.area.get(roomName);
                     console.log('Area', area);
                     area.setProperty('playAudio', url);
                     WA.player.state.saveVariable('isPlaying', {isPlaying: true, url: url, name: name});
-                    changeTiles(area, radioName);
+                    const radio = await WA.player.state.loadVariable('radio');
+                    changeTiles(area, radioName, true);
                 }
 
-                async function changeTiles(area, radioName){
+                async function changeTiles(area, radioName, saveVariable){
                     const tilesArea = await WA.room.area.get(area.name + 'Logo');
                     const x = Math.round(tilesArea.x / 32);
                     const y = Math.round(tilesArea.y / 32);
@@ -198,7 +200,16 @@
                         { x: x+1, y: y+1, tile: String(radioName)+3, layer: "floor/floor4" },
                     ]);
 
+                    if(saveVariable){
+                        WA.player.state.saveVariable(roomName+'Tiles', {radioName: radioName});
+                    }
+
                 }
+
+                WA.player.state.onVariableChange(roomName+'Tiles').subscribe((radioTiles) => {
+                    console.log('Radio changed tiles', radioTiles);
+                    changeTiles({name: roomName}, radioTiles.radioName, false);
+                });
 
             </script>
 
