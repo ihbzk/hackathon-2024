@@ -1,16 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 
-<head>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Gochi+Hand&display=swap" rel="stylesheet">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="robots" content="noindex">
+        <meta name="title" content="Scoreboard Radio">
+        <title>Scoreboard Radio</title>
+        <link rel="icon" href="./images/favicon.svg" type="image/svg+xml">
+
     <style>
         html {
             font-family: "Gochi Hand", cursive;
             font-weight: 400;
             font-style: normal;
-            height: 88%;
+            height: 92%;
             background-color: #F9E7CF;
             border-left: 10px solid #D8CFC3;
             border-right: 10px solid #D8CFC3;
@@ -45,7 +50,7 @@
 </head>
 
 <body>
-    <h3>Top 3 des radios que vous ecoutez le plus</h3>
+    <h3>Top 3 des radios que vous écoutez le plus</h3>
     <div id="radioTimeDisplay"></div>
 
     <script>
@@ -63,7 +68,7 @@
 
                     radioTimeDisplay.innerHTML = formattedRadioTime;
                 } else {
-                    radioTimeDisplay.innerHTML = "Vous n'avez pas encore ecoute de radio pour avoir un classement.";
+                    radioTimeDisplay.innerHTML = "Vous n'avez pas encore écouté de radio pour avoir un classement.";
                 }
             }
 
