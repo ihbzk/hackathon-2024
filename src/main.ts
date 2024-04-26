@@ -17,9 +17,13 @@ interface Radio {
 }
 
 // Waiting for the API to be ready
-WA.onInit().then(() => {
+WA.onInit().then(async () => {
     console.log('Scripting API ready');
     console.log('Player tags: ',WA.player.tags)
+    await WA.players.configureTracking({
+        players: true,
+        movement: false,
+      });
     initRadioRoom();
     
     WA.ui.onRemotePlayerClicked.subscribe(async (remotePlayer) => {
