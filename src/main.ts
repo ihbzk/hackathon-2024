@@ -67,7 +67,7 @@ WA.onInit().then(() => {
                     console.log("Le propriétaire de la radio est  : "+  WA.player.name + " dans la room : " + room.name);
         
                     radioUIWebsite = await WA.ui.website.open({
-                        url: "http://localhost:5173/radio.html",
+                        url: "http://localhost:5173/radio.html?room="+room.name,
                         allowApi: true,
                         position: {
                             vertical: "top",
@@ -90,7 +90,7 @@ WA.onInit().then(() => {
                     });
                     if(radio.playerOwner === WA.player.id){
                         radioUIWebsite = await WA.ui.website.open({
-                            url: "http://localhost:5173/radio.html",
+                            url: "http://localhost:5173/radio.html?room="+room.name,
                             allowApi: true,
                             position: {
                                 vertical: "top",

@@ -804,6 +804,18 @@
                  "width":63.080437052506,
                  "x":362.813898418854,
                  "y":289.653303997613
+                }, 
+                {
+                 "height":0,
+                 "id":39,
+                 "name":"radio2",
+                 "point":true,
+                 "rotation":0,
+                 "type":"variable",
+                 "visible":true,
+                 "width":0,
+                 "x":725.110166721151,
+                 "y":539.616868257601
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -969,7 +981,7 @@
          "y":0
         }],
  "nextlayerid":76,
- "nextobjectid":39,
+ "nextobjectid":44,
  "orientation":"orthogonal",
  "properties":[
         {

@@ -154,12 +154,8 @@
 
             <script>
                 var images = document.getElementsByClassName("station-radio");
-                WA.onInit().then(async () => {
-                    
-                    const website = await WA.ui.website.getById(WA.iframeId);
-                    console.log('Website frame', website);
-                });
-
+                const url = new URL(window.location.href);
+                const roomName = url.searchParams.get("room");
 
                 // Definition des click event pour le propriétaire de la salle
                 for (var i = 0; i < images.length; i++) {
@@ -184,7 +180,7 @@
                 }
 
                 async function changeRadio(url, name, idFirstTile){
-                    const area = await WA.room.area.get('radio');
+                    const area = await WA.room.area.get(roomName);
                     console.log('Area', area);
                     area.setProperty('playAudio', url);
                     WA.player.state.saveVariable('isPlaying', {isPlaying: true, url: url, name: name});
