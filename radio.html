@@ -154,6 +154,12 @@
 
             <script>
                 var images = document.getElementsByClassName("station-radio");
+                WA.onInit().then(async () => {
+                    
+                    const website = await WA.ui.website.getById(WA.iframeId);
+                    console.log('Website frame', website);
+                });
+
 
                 // Definition des click event pour le propriétaire de la salle
                 for (var i = 0; i < images.length; i++) {

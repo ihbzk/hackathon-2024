@@ -2,6 +2,7 @@
 
 import { UIWebsite, Popup } from "@workadventure/iframe-api-typings";
 import { bootstrapExtra } from "@workadventure/scripting-api-extra";
+import { getAreaObject } from '@workadventure/scripting-api-extra';
 
 console.log('Script started successfully');
 
@@ -18,6 +19,7 @@ interface Radio {
 WA.onInit().then(() => {
     console.log('Scripting API ready');
     console.log('Player tags: ',WA.player.tags)
+    initRadioRoom();
 
     WA.room.area.onEnter('clock').subscribe(() => {
         const today = new Date();
@@ -26,87 +28,112 @@ WA.onInit().then(() => {
     })
 
     WA.room.area.onLeave('clock').subscribe(closePopup)
-    
-    WA.room.area.onEnter('radio').subscribe( async () => {
-        WA.event.broadcast("bell-rang", {});
 
-        WA.player.state.saveVariable("radio_can_play", false);
-
-        const radio: Radio = await WA.state.loadVariable('radio') as Radio;
-
-        if (!radio.playerOwner || radio.playerNumber <= 0 ) {
-            const playerOwner = WA.player.id;
-
-            WA.state.saveVariable('radio', {
-                playerOwner,
-                playerNumber: 1
-            });
-            console.log("Le propriétaire de la radio est  :",  WA.player.name);
-
-            radioUIWebsite = await WA.ui.website.open({
-                url: "http://localhost:5173/radio.html",
-                allowApi: true,
-                position: {
-                    vertical: "top",
-                    horizontal: "right",
-                },
-                size: {
-                    height: "35vh",
-                    width: "35vw",
-                },
-                margin: {
-                    top: "5vh",
-                    right: "5vw",
-                },
-            });
-        
-        } else {
-            WA.state.saveVariable('radio', { 
-                playerOwner: radio.playerOwner,
-                playerNumber: radio.playerNumber++
-            });
-            if(radio.playerOwner === WA.player.id){
-                radioUIWebsite = await WA.ui.website.open({
-                    url: "http://localhost:5173/radio.html",
-                    allowApi: true,
-                    position: {
-                        vertical: "top",
-                        horizontal: "right",
-                    },
-                    size: {
-                        height: "35vh",
-                        width: "35vw",
-                    },
-                    margin: {
-                        top: "5vh",
-                        right: "5vw",
-                    },
-                });
+    async function getAllRadioRoom(): Promise<any> {
+        const rooms = await getAreaObject();
+        var radioRooms = [];
+        for (const room of rooms) {
+            if (room.name.startsWith('radio') && !room.name.includes('Logo')) {
+                radioRooms.push(room);
             }
         }
-    });
+        return radioRooms;
+    }
+    
 
-    WA.room.area.onLeave('radio').subscribe(async () => {
-        console.log('Player leaving the radio station ...');
 
-        WA.player.state.saveVariable("radio_can_play", true);
+    async function initRadioRoom(){
+        
+        const radioRooms = await getAllRadioRoom();
 
-        const radio: Radio = await WA.state.loadVariable('radio') as Radio;
+        for(const room of radioRooms){
 
-        if(radio.playerOwner === WA.player.id ){
-            WA.state.saveVariable('radio', {
-                playerOwner,
-                playerNumber: radio.playerNumber -1
+            console.log('Init radio room  : '+ room.name);
+
+            WA.room.area.onEnter(room.name).subscribe( async () => {
+                WA.event.broadcast("bell-rang", {});
+        
+                WA.player.state.saveVariable("radio_can_play", false);
+        
+                const radio: Radio = await WA.state.loadVariable(room.name) as Radio;
+        
+                if (radio === undefined || !radio.playerOwner || radio.playerNumber <= 0 ) {
+                    const playerOwner = WA.player.id;
+        
+                    WA.state.saveVariable(room.name, {
+                        playerOwner,
+                        playerNumber: 1
+                    });
+                    console.log("Le propriétaire de la radio est  : "+  WA.player.name + " dans la room : " + room.name);
+        
+                    radioUIWebsite = await WA.ui.website.open({
+                        url: "http://localhost:5173/radio.html",
+                        allowApi: true,
+                        position: {
+                            vertical: "top",
+                            horizontal: "right",
+                        },
+                        size: {
+                            height: "35vh",
+                            width: "35vw",
+                        },
+                        margin: {
+                            top: "5vh",
+                            right: "5vw",
+                        },
+                    });
+                
+                } else {
+                    WA.state.saveVariable(room.name, { 
+                        playerOwner: radio.playerOwner,
+                        playerNumber: radio.playerNumber++
+                    });
+                    if(radio.playerOwner === WA.player.id){
+                        radioUIWebsite = await WA.ui.website.open({
+                            url: "http://localhost:5173/radio.html",
+                            allowApi: true,
+                            position: {
+                                vertical: "top",
+                                horizontal: "right",
+                            },
+                            size: {
+                                height: "35vh",
+                                width: "35vw",
+                            },
+                            margin: {
+                                top: "5vh",
+                                right: "5vw",
+                            },
+                        });
+                    }
+                }
             });
-            console.log('La playerOwner reset à null');
-        }
-        radioUIWebsite.close();
 
-        // DONT INCREMENT RADIO TIME WHEN LEAVING RADIO
-        WA.player.state.saveVariable('isPlaying', {isPlaying: false, name: '', url: ''});
-        console.log('La playerOwner reset à null');
+
+            WA.room.area.onLeave(room.name).subscribe(async () => {
+                console.log('Player leaving the radio station ...');
+        
+                WA.player.state.saveVariable("radio_can_play", true);
+        
+                const radio: Radio = await WA.state.loadVariable(room.name) as Radio;
+        
+                if(radio.playerOwner === WA.player.id ){
+                    WA.state.saveVariable(room.name, {
+                        playerOwner,
+                        playerNumber: radio.playerNumber -1
+                    });
+                    console.log('La playerOwner reset à null : ' + room.name);
+                }
+                radioUIWebsite.close();
+        
+                // DONT INCREMENT RADIO TIME WHEN LEAVING RADIO
+                WA.player.state.saveVariable('isPlaying', {isPlaying: false, name: '', url: ''});
+                console.log('La playerOwner reset à null : ' + room.name);
+                }
+            );
+            
         }
-    );
+    }
 
 
     WA.room.website.create(
