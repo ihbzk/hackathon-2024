@@ -13,6 +13,7 @@ let playerOwner: string | null = null;
 interface Radio {
     playerOwner: string | null
     playerNumber: number
+    radioName?: string
 }
 
 // Waiting for the API to be ready
@@ -62,7 +63,8 @@ WA.onInit().then(() => {
         
                     WA.state.saveVariable(room.name, {
                         playerOwner,
-                        playerNumber: 1
+                        playerNumber: 1,
+                        radioName: radio.radioName ? radio.radioName : room.name
                     });
                     console.log("Le propriétaire de la radio est  : "+  WA.player.name + " dans la room : " + room.name);
         
@@ -86,7 +88,8 @@ WA.onInit().then(() => {
                 } else {
                     WA.state.saveVariable(room.name, { 
                         playerOwner: radio.playerOwner,
-                        playerNumber: radio.playerNumber++
+                        playerNumber: radio.playerNumber++,
+                        radioName: radio.radioName ? radio.radioName : ''
                     });
                     if(radio.playerOwner === WA.player.id){
                         radioUIWebsite = await WA.ui.website.open({
@@ -120,7 +123,8 @@ WA.onInit().then(() => {
                 if(radio.playerOwner === WA.player.id ){
                     WA.state.saveVariable(room.name, {
                         playerOwner,
-                        playerNumber: radio.playerNumber -1
+                        playerNumber: radio.playerNumber -1,
+                        radioName: radio.radioName ? radio.radioName : ''
                     });
                     console.log('La playerOwner reset à null : ' + room.name);
                 }

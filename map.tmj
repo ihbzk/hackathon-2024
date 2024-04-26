@@ -885,6 +885,42 @@
                  "width":63.0804,
                  "x":362.473347540518,
                  "y":289.223048015746
+                }, 
+                {
+                 "height":0,
+                 "id":49,
+                 "name":"radioTiles",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"default",
+                         "type":"string",
+                         "value":"{}"
+                        }],
+                 "rotation":0,
+                 "type":"variable",
+                 "visible":true,
+                 "width":0,
+                 "x":468,
+                 "y":496
+                }, 
+                {
+                 "height":0,
+                 "id":50,
+                 "name":"radio2Tiles",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"default",
+                         "type":"string",
+                         "value":"{}"
+                        }],
+                 "rotation":0,
+                 "type":"variable",
+                 "visible":true,
+                 "width":0,
+                 "x":763.333333333333,
+                 "y":485.333333333333
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -1050,7 +1086,7 @@
          "y":0
         }],
  "nextlayerid":77,
- "nextobjectid":49,
+ "nextobjectid":51,
  "orientation":"orthogonal",
  "properties":[
         {
