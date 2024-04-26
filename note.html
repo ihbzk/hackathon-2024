@@ -58,7 +58,11 @@
         const url = new URL(window.location.href);
         const type = url.searchParams.get("type");
 
-        WA.onInit().then(() => {
+        WA.onInit().then(async () => {
+            await WA.players.configureTracking({
+                players: true,
+                movement: false,
+            });
             refreshNote();
         }).catch(e => console.error(e));
 
@@ -108,10 +112,6 @@
         }
 
         async function getGlobalRadioTime(){
-            await WA.players.configureTracking({
-                players: true,
-                movement: false,
-            });
             const players = WA.players.list();
             const globalRadioTime = {};
             for (const player of players) {
