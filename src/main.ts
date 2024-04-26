@@ -25,6 +25,7 @@ WA.onInit().then(async () => {
         movement: false,
       });
     initRadioRoom();
+}).catch(e => console.error(e));
     
     WA.ui.onRemotePlayerClicked.subscribe(async (remotePlayer) => {
         const radioTime = await WA.player.state.loadVariable('radioTime') as RadioTime;
@@ -189,17 +190,18 @@ WA.onInit().then(async () => {
 
         if( isPlaying.isPlaying && isPlaying.name){
             let radioTime = WA.player.state.radioTime as RadioTime || {};
-            radioTime[isPlaying.name] = (radioTime[isPlaying.name] || 0) + 1;
-
+            radioTime[isPlaying.name] = (radioTime[isPlaying.name] || 0) + 1 ; 
+            
             WA.player.state.saveVariable(
                 "radioTime", 
-                radioTime, 
+                radioTime,
                 {
                     public: true,
                     persist: true, 
                     ttl:  31536000,
                     scope: 'world'
                 });
+                
         }
         else{
             console.log("Player is not playing, radio time is not incremented");
@@ -274,8 +276,6 @@ WA.onInit().then(async () => {
     WA.room.onLeaveLayer("visibleNoteRadioPlayer").subscribe(() => {
         noteRadioPlayer.close();
     });
-
-}).catch(e => console.error(e));
 
 function closePopup(){
     if (currentPopup !== undefined) {

@@ -8,11 +8,14 @@
         <div>
             
             <script>
+                WA.onInit().then(() => {
+                    WA.player.state.saveVariable('isPlaying', {isPlaying: false, url: '', name: ''});
+
+                });
 
             // ON INIT
             var audio = new Audio();
             var radioUIWebsite = undefined;
-            WA.player.state.saveVariable('isPlaying', {isPlaying: false, url: '', name: ''});
             addRadioMenu();
 
             // FOR HEADSET
