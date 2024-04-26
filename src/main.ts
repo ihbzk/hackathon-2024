@@ -180,27 +180,6 @@ WA.onInit().then(() => {
         }
     }
 
-    // async function getGlobalRadioTime(){
-    //     await WA.players.configureTracking({
-    //         players: true,
-    //         movement: false,
-    //     });
-    //     const players = WA.players.list();
-    //     let globalRadioTime: RadioTime = {};
-    //     for (const player of players) {
-    //         const radioTime = player.state.radioTime as RadioTime;
-    //         for (const key in radioTime) {
-    //             globalRadioTime[key] = (globalRadioTime[key] || 0) + radioTime[key];
-    //         }
-    //     }
-
-    //     const radioTime = WA.player.state.radioTime as RadioTime;
-    //     for (const key in radioTime) {
-    //         globalRadioTime[key] = (globalRadioTime[key] || 0) + radioTime[key];
-    //     }
-        
-    // }
-
     setInterval(incrementRadio, 1000);
 
     const bellSound = WA.sound.loadSound("sounds/door-bell-1.mp3");
@@ -216,13 +195,13 @@ WA.onInit().then(() => {
         console.log('Scripting API Extra ready');
     }).catch(e => console.error(e));
     
-    let noteWebsite: any;
+    let noteRadioPlayer: any;
 
-    WA.room.onEnterLayer("visibleNote").subscribe(async () => {
-        console.log("Entering visibleNote layer");
+    WA.room.onEnterLayer("visibleNoteRadioPlayer").subscribe(async () => {
+        console.log("Entering noteRadioPlayer layer");
 
-        noteWebsite = await WA.ui.website.open({
-            url: "./note.html",
+        noteRadioPlayer = await WA.ui.website.open({
+            url: "./note.html?type=player",
             position: {
                 vertical: "top",
                 horizontal: "middle",
@@ -239,8 +218,35 @@ WA.onInit().then(() => {
 
     });
 
-    WA.room.onLeaveLayer("visibleNote").subscribe(() => {
-        noteWebsite.close();
+    let noteRadioGlobal: any;
+
+    WA.room.onEnterLayer("visibleNoteRadioGlobal").subscribe(async () => {
+        console.log("Entering visibleNoteRadioGlobal layer");
+
+        noteRadioGlobal = await WA.ui.website.open({
+            url: "./note.html?type=global",
+            position: {
+                vertical: "top",
+                horizontal: "middle",
+            },
+            size: {
+                height: "40vh",
+                width: "50vw",
+            },
+            margin: {
+                top: "10vh",
+            },
+            allowApi: true,
+        });
+
+    });
+
+    WA.room.onLeaveLayer("visibleNoteRadioGlobal").subscribe(() => {
+        noteRadioGlobal.close();
+    });
+
+    WA.room.onLeaveLayer("visibleNoteRadioPlayer").subscribe(() => {
+        noteRadioPlayer.close();
     });
 
 }).catch(e => console.error(e));

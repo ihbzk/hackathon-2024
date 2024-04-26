@@ -204,7 +204,7 @@
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":21,
          "id":75,
-         "name":"visibleNote",
+         "name":"visibleNoteRadioPlayer",
          "opacity":1,
          "type":"tilelayer",
          "visible":true,
@@ -236,7 +236,7 @@
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":21,
          "id":76,
-         "name":"globalNoteArea",
+         "name":"visibleNoteRadioGlobal",
          "opacity":1,
          "type":"tilelayer",
          "visible":true,
@@ -821,14 +821,14 @@
                 {
                  "height":42.8965542959427,
                  "id":37,
-                 "name":"top3",
+                 "name":"topGlobal",
                  "rotation":0,
                  "text":
                     {
                      "fontfamily":"Bradley Hand",
                      "halign":"center",
                      "pixelsize":9,
-                     "text":"Tops global des radios",
+                     "text":"Top 3 des radios les plus \u00e9cout\u00e9es",
                      "wrap":true
                     },
                  "type":"",
@@ -870,7 +870,7 @@
                 {
                  "height":42.8966,
                  "id":45,
-                 "name":"topsGlobal",
+                 "name":"topsPlayer",
                  "rotation":0,
                  "text":
                     {
@@ -1050,7 +1050,7 @@
          "y":0
         }],
  "nextlayerid":77,
- "nextobjectid":46,
+ "nextobjectid":49,
  "orientation":"orthogonal",
  "properties":[
         {
