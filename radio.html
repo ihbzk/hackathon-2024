@@ -125,7 +125,7 @@
             <h2>Selection de radio</h2>
             <div>
                 <ul class="list-radio-stations">
-                    <li class="station-radio yellow" url="http://direct.franceinfo.fr/live/franceinfo-hifi.aac" idFirstTile="5057" name="France Info">
+                    <li class="station-radio yellow" url="http://direct.franceinfo.fr/live/franceinfo-hifi.aac" radioName="franceInfo" name="France Info">
                         <img class="radioIcon" src="./images/radio_france_info.png" alt="Radio France">
                         <div class="d-flex fd-column text-white w-100">
                             <p>France Info</p>
@@ -133,7 +133,7 @@
                         </div>
                     </li>
                     <hr>
-                    <li class="station-radio pink" url="http://direct.franceinter.fr/live/francemusique-hifi.aac" idFirstTile="5061" name="France Musique">
+                    <li class="station-radio pink" url="http://direct.franceinter.fr/live/francemusique-hifi.aac" radioName="franceMusique" name="France Musique">
                         <img class="radioIcon" src="./images/radio_france_musique.png" alt="Radio France Musique">
                         <div class="d-flex fd-column text-white w-100">
                             <p>France Musique</p>
@@ -141,7 +141,7 @@
                         </div>
                     </li>
                     <hr>
-                    <li class="station-radio purple" url="http://direct.franceculture.fr/live/franceculture-hifi.aac" idFirstTile="5053" name="France Culture">
+                    <li class="station-radio purple" url="http://direct.franceculture.fr/live/franceculture-hifi.aac" radioName="franceCulture" name="France Culture">
                         <img class="radioIcon" src="./images/radio_france_culture.png" alt="Radio France Culture">
                         <div class="d-flex fd-column text-white w-100">
                             <p>France Culture</p>
@@ -164,8 +164,8 @@
 
                         const url = this.getAttribute("url");
                         const name = this.getAttribute("name");
-                        const idFirstTile = this.getAttribute("idFirstTile");
-                        changeRadio(url, name, idFirstTile);
+                        const radioName = this.getAttribute("radioName");
+                        changeRadio(url, name, radioName);
                     });
                 }
 
@@ -178,24 +178,24 @@
                     SelectedImage.classList.add("station-radio-selected");
                 }
 
-                async function changeRadio(url, name, idFirstTile){
+                async function changeRadio(url, name, radioName){
                     const area = await WA.room.area.get(roomName);
                     console.log('Area', area);
                     area.setProperty('playAudio', url);
                     WA.player.state.saveVariable('isPlaying', {isPlaying: true, url: url, name: name});
-                    changeTiles(area, idFirstTile);
+                    changeTiles(area, radioName);
                 }
 
-                async function changeTiles(area, idFirstTile){
+                async function changeTiles(area, radioName){
                     const tilesArea = await WA.room.area.get(area.name + 'Logo');
                     const x = Math.round(tilesArea.x / 32);
                     const y = Math.round(tilesArea.y / 32);
 
                     WA.room.setTiles([
-                        { x: x, y: y, tile: Number(idFirstTile), layer: "floor/floor4" },
-                        { x: x+1, y: y, tile: Number(idFirstTile)+1, layer: "floor/floor4" },
-                        { x: x, y: y+1, tile: Number(idFirstTile)+2, layer: "floor/floor4" },
-                        { x: x+1, y: y+1, tile: Number(idFirstTile)+3, layer: "floor/floor4" },
+                        { x: x, y: y, tile: String(radioName), layer: "floor/floor4" },
+                        { x: x+1, y: y, tile: String(radioName)+1, layer: "floor/floor4" },
+                        { x: x, y: y+1, tile: String(radioName)+2, layer: "floor/floor4" },
+                        { x: x+1, y: y+1, tile: String(radioName)+3, layer: "floor/floor4" },
                     ]);
 
                 }
