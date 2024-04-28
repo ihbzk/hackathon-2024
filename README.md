@@ -20,6 +20,8 @@ et des fonctionnalités multimédia pour des interactions enrichissantes.
 
 ### **Fonctionnalités développées**
 
+Ilyesse Hamcherif
+
 - Création de la carte (Ilyesse Hamcherif)
 
 - Création de l'interface de gestion des radios (Damien)
@@ -31,4 +33,16 @@ et des fonctionnalités multimédia pour des interactions enrichissantes.
 
 - Avoir un tableau récapitulatif montrant le top 3 des radios les plus écouté par l'utilisateur connecté (Ilyesse Hamcherif)
 - Avoir un tableau récapitulatif montrant le top 3 des radios les plus écouté (Ilyesse Hamcherif)
+
+
+Justin Katasi
+
+Tâches :
+Rédaction de documentation et de spécifications fonctionnelles et techniques.
+Implémentation de la fonctionnalité "Radio Owner Player".
+
+Fonctionnalité "Radio Owner Player" :
+La fonctionnalité "Radio Owner Player" permet au premier joueur à entrer dans une salle de radio d'être désigné comme le propriétaire de la salle, lui conférant ainsi un contrôle total sur les interactions de la station radio jusqu'à sa sortie de la salle. Lorsque le propriétaire actuel quitte la salle et qu'il y a un autre joueur présent dans la salle, ce dernier est automatiquement désigné comme le nouveau propriétaire de la radio.
+
+Cette fonctionnalité garantit une expérience fluide et organisée pour les utilisateurs de la plateforme de radio, en assurant une gestion efficace de la propriété de la salle et en permettant une transition transparente entre les propriétaires lorsqu'ils quittent la salle.
 
