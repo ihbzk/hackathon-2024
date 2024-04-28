@@ -12,7 +12,9 @@ Lien :
 
 ### Vidéo bonus (pour Adrien MORIN)
 
-Lien : 
+Liens :
+- https://youtu.be/Ra2tkW7zwl0
+- https://youtu.be/GrR39NtivZo
 
 ### **Idée du projet**
 Développer une carte dédiée aux radios où chaque station type France Info, 
