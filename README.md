@@ -32,10 +32,11 @@ et des fonctionnalités multimédia pour des interactions enrichissantes.
 
 ### L'équipe ###
 
-- Ilyesse Hamcherif (chef d'équipe) | Git : ihbzk
-- Jules Rabus | Git : Jules-Rabus
-- Damien Boillot-Henault | Git : Dambh45
-- Justin Katasi | Git : justinDev91
+- Ilyesse Hamcherif (chef d'équipe & dev) | GitHub : ihbzk
+- Jules Rabus (dev) | GitHub : Jules-Rabus
+- Damien Boillot-Henault (dev) | GitHub : Dambh45
+- Justin Katasi (dev) | GitHub : justinDev91
+- Rayane Dridi (marketing) | GitHub : ragnar95340
 
 ### **Fonctionnalités développées**
 
