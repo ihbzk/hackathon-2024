@@ -8,7 +8,11 @@ Lien : https://play.workadventu.re/@/radio-map/radio-map---hackathon/radio-map
 
 ### Vidéo de présentation
 
-Lien : https://drive.google.com/file/d/1x6xUtS9H_Sd47gPMFYPrTo9mK4qEcsfM/view?pli=1
+Lien : 
+
+### Vidéo bonus (pour Adrien MORIN)
+
+Lien : 
 
 ### **Idée du projet**
 Développer une carte dédiée aux radios où chaque station type France Info, 
