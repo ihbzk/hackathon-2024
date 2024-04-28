@@ -2,6 +2,10 @@
 
 Lien : https://ihbzk.github.io/hackathon-2024/
 
+### Map sur WorkAdventure
+
+Lien : https://play.workadventu.re/@/radio-map/radio-map---hackathon/radio-map
+
 ### Vidéo de présentation
 
 Lien : https://drive.google.com/file/d/1x6xUtS9H_Sd47gPMFYPrTo9mK4qEcsfM/view?pli=1
