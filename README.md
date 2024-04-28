@@ -11,6 +11,10 @@ Chaque station a son espace pour diffuser en direct et accueillir
 des invités dans des salles dédiées. Intégrez des décors personnalisés 
 et des fonctionnalités multimédia pour des interactions enrichissantes.
 
+### GitHub Pages
+
+lien : https://ihbzk.github.io/hackathon-2024/
+
 ### L'équipe ###
 
 - Ilyesse Hamcherif (chef d'équipe) | Git : ihbzk
@@ -22,18 +26,21 @@ et des fonctionnalités multimédia pour des interactions enrichissantes.
 
 Ilyesse Hamcherif
 
-- Création de la carte (Ilyesse Hamcherif)
+- Création de la carte
+- Avoir un tableau récapitulatif montrant le top 3 des radios les plus écouté par l'utilisateur connecté
+- Avoir un tableau récapitulatif montrant le top 3 des radios les plus écouté
 
-- Création de l'interface de gestion des radios (Damien)
-- Mise en avant de la radio selectionnée dans la liste des radios (Damien)
+
+Damien Boillot-Henault
+
+- Création de l'interface de gestion des radios
+- Mise en avant de la radio selectionnée dans la liste des radios
+
+Jules
 
 - Changement des tiles lors de la sélection d'une radio (Jules)
 - RadioEveryWhere : Ajout du backend, ajout du frontend : menu (Jules)
 - TOP 3 : fonctionnement du backend : ajout des compteurs de temps passé à écouter la radio. (Jules)
-
-- Avoir un tableau récapitulatif montrant le top 3 des radios les plus écouté par l'utilisateur connecté (Ilyesse Hamcherif)
-- Avoir un tableau récapitulatif montrant le top 3 des radios les plus écouté (Ilyesse Hamcherif)
-
 
 Justin Katasi
 
