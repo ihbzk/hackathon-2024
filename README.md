@@ -8,7 +8,7 @@ Lien : https://play.workadventu.re/@/radio-map/radio-map---hackathon/radio-map
 
 ### Vidéo de présentation
 
-Lien : 
+Lien : https://www.youtube.com/watch?v=skWS9Rg4ltA
 
 ### Vidéo bonus (pour Adrien MORIN)
 
