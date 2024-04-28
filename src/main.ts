@@ -87,7 +87,7 @@ WA.onInit().then(async () => {
                     WA.state.saveVariable(room.name, {
                         playerOwner,
                         playerNumber: 1,
-                        radioName: radio.radioName ? radio.radioName : room.name
+                        radioName: radio && radio.radioName ? radio.radioName : ''
                     });
                     console.log("Le propriétaire de la radio est  : "+  WA.player.name + " dans la room : " + room.name);
         
