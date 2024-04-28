@@ -1,55 +1,34 @@
-# WorkAdventure Map Starter Kit
+### **Idée du projet**
+Développer une carte dédiée aux radios où chaque station type France Info, 
+Skyrock etc… puissent avoir son endroit pour accueillir et faire des lives 
+sur des plateformes comme YouTube, Twitch etc… ou émettre le flux de la 
+carte dans leur fréquence radio.
 
-![map](./map.png)
+### **Description du projet**
 
-This is a starter kit to help you build your own map for [WorkAdventure](https://workadventu.re).
+Créez une carte interactive sur WorkAdventure pour les radios. 
+Chaque station a son espace pour diffuser en direct et accueillir 
+des invités dans des salles dédiées. Intégrez des décors personnalisés 
+et des fonctionnalités multimédia pour des interactions enrichissantes.
 
-To understand how to use this starter kit, follow the tutorial at [https://workadventu.re/map-building](https://workadventu.re/map-building).
+### L'équipe ###
 
-## Structure
-* *public*: Static files like PDFs or audio files
-* *src*: Scripts files
-* *tilesets*: All tilesets
-* *map.tmj*: Map file
-* *map.png*: The map thumbnail displayed on the in-game map information
+- Ilyesse Hamcherif (chef d'équipe) | Git : ihbzk
+- Jules Rabus | Git : Jules-Rabus
+- Damien Boillot-Henault | Git : Dambh45
+- Justin Katasi | Git : justinDev91
 
-If you want to use more than one map file, just add the new map file on root or in a folder.
+### **Fonctionnalités développées**
 
-we recommend using 500x500 images for the map thumbnails.
+- Création de la carte (Ilyesse Hamcherif)
 
-If you are going to create custom websites to embed in the map, please reference the HTML files in the `input` option in *vite.config.js*.
+- Création de l'interface de gestion des radios (Damien)
+- Mise en avant de la radio selectionnée dans la liste des radios (Damien)
 
-## Requirements
+- Changement des tiles lors de la sélection d'une radio (Jules)
+- RadioEveryWhere : Ajout du backend, ajout du frontend : menu (Jules)
+- TOP 3 : fonctionnement du backend : ajout des compteurs de temps passé à écouter la radio. (Jules)
 
-Node.js version >=17
+- Avoir un tableau récapitulatif montrant le top 3 des radios les plus écouté par l'utilisateur connecté (Ilyesse Hamcherif)
+- Avoir un tableau récapitulatif montrant le top 3 des radios les plus écouté (Ilyesse Hamcherif)
 
-## Installation
-
-With npm installed (comes with [node](https://nodejs.org/en/)), run the following commands into a terminal in the root directory of this project:
-
-```shell
-npm install
-npm run dev
-```
-
-## Test production map
-
-You can test the optimized map as it will be in production:
-```sh
-npm run build
-npm run prod
-```
-
-## Licenses
-
-This project contains multiple licenses as follows:
-
-* [Code license](./LICENSE.code) *(all files except those for other licenses)*
-* [Map license](./LICENSE.map) *(`map.tmj` and the map visual as well)*
-* [Assets license](./LICENSE.assets) *(the files inside the `src/assets/` folder)*
-
-### About third party assets
-
-If you add third party assets in your map, do not forget to:
-1. Credit the author and license with the "tilesetCopyright" property present in the properties of each tilesets in the `map.tmj` file
-2. Add the license text in LICENSE.assets
